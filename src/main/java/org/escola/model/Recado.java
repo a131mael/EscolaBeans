@@ -18,18 +18,22 @@ package org.escola.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.aaf.dto.RecadoDTO;
+import org.escola.enums.TipoDestinatario;
 
 @SuppressWarnings("serial")
 @Entity
@@ -51,7 +55,7 @@ public class Recado implements Serializable {
     @Column
     private Date dataFim;
     
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String descricao;
 
     @Column
@@ -80,6 +84,33 @@ public class Recado implements Serializable {
     
     @Column
     private String opcao6;
+    
+    @Column
+    private boolean respostaBooleana = true;
+    
+    @Column
+    private boolean bigQuestion;
+    
+    @Column
+    private byte[] filePergunta;
+
+    @Column
+  	private byte[] filePerguntaUnder;
+
+    @Column
+    private String respostaAberta;
+      
+    @Column
+    private String descricaoUnder;
+
+    @Column
+  	private int fontSizeQuestion;
+  	
+    @Column
+  	private TipoDestinatario tipoDestinatario;
+    
+    @Transient
+    private boolean precisaDeResposta;
     
 	public String getNome() {
 		return nome;
@@ -236,7 +267,105 @@ public class Recado implements Serializable {
 		recadoDTO.setOpcao6(opcao6);
 		recadoDTO.setQuestionario(questionario);
 		recadoDTO.setRemovido(removido);
+		recadoDTO.setBigQuestion(isBigQuestion());
+		recadoDTO.setFilePergunta(getFilePergunta());
+		recadoDTO.setFilePerguntaUnder(getFilePerguntaUnder());
+		recadoDTO.setFontSizeQuestion(fontSizeQuestion);
+		recadoDTO.setRespostaBooleana(respostaBooleana);
+		recadoDTO.setRespostaAberta(respostaAberta);
+		recadoDTO.setQuestionario(questionario);
+		recadoDTO.setTipoDestinatario(tipoDestinatario.ordinal());
+		
+		
 		return recadoDTO;
+	}
+
+	public boolean isRespostaBooleana() {
+		return respostaBooleana;
+	}
+
+
+	public void setRespostaBooleana(boolean respostaBooleana) {
+		this.respostaBooleana = respostaBooleana;
+	}
+
+	public boolean isBigQuestion() {
+		return bigQuestion;
+	}
+
+
+	public void setBigQuestion(boolean bigQuestion) {
+		this.bigQuestion = bigQuestion;
+	}
+
+
+	public byte[] getFilePerguntaUnder() {
+		return filePerguntaUnder;
+	}
+
+
+	public void setFilePerguntaUnder(byte[] filePerguntaUnder) {
+		this.filePerguntaUnder = filePerguntaUnder;
+	}
+
+
+	public byte[] getFilePergunta() {
+		return filePergunta;
+	}
+
+
+	public void setFilePergunta(byte[] filePergunta) {
+		this.filePergunta = filePergunta;
+	}
+
+
+	public String getRespostaAberta() {
+		return respostaAberta;
+	}
+
+
+	public void setRespostaAberta(String respostaAberta) {
+		this.respostaAberta = respostaAberta;
+	}
+
+
+	public String getDescricaoUnder() {
+		return descricaoUnder;
+	}
+
+
+	public void setDescricaoUnder(String descricaoUnder) {
+		this.descricaoUnder = descricaoUnder;
+	}
+
+
+	public int getFontSizeQuestion() {
+		return fontSizeQuestion;
+	}
+
+
+	public void setFontSizeQuestion(int fontSizeQuestion) {
+		this.fontSizeQuestion = fontSizeQuestion;
+	}
+
+
+	public boolean isPrecisaDeResposta() {
+		return precisaDeResposta;
+	}
+
+
+	public void setPrecisaDeResposta(boolean precisaDeResposta) {
+		this.precisaDeResposta = precisaDeResposta;
+	}
+
+
+	public TipoDestinatario getTipoDestinatario() {
+		return tipoDestinatario;
+	}
+
+
+	public void setTipoDestinatario(TipoDestinatario tipoDestinatario) {
+		this.tipoDestinatario = tipoDestinatario;
 	}
 
 }
