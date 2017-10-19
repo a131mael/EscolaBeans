@@ -59,6 +59,8 @@ public class Member implements Serializable {
     @Column(columnDefinition = "TEXT")
     private String tokenFCM;
 
+    @Column
+    private Boolean desabilitado;
 	
 	public Long getId() {
 		return id;
@@ -143,5 +145,13 @@ public class Member implements Serializable {
 
 	public void setTokenFCM(String tokenFCM) {
 		this.tokenFCM = tokenFCM;
+	}
+
+	public Boolean getDesabilitado() {
+		return desabilitado;
+	}
+
+	public void setDesabilitado(Boolean desabilitado) {
+		this.desabilitado = desabilitado;
 	}
 }

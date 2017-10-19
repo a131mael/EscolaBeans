@@ -18,13 +18,11 @@ package org.escola.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -51,6 +49,9 @@ public class Recado implements Serializable {
     
     @Column                
     private Date dataInicio;
+    
+    @Column                
+    private Date dataParaExibicao;
     
     @Column
     private Date dataFim;
@@ -366,6 +367,16 @@ public class Recado implements Serializable {
 
 	public void setTipoDestinatario(TipoDestinatario tipoDestinatario) {
 		this.tipoDestinatario = tipoDestinatario;
+	}
+
+
+	public Date getDataParaExibicao() {
+		return dataParaExibicao;
+	}
+
+
+	public void setDataParaExibicao(Date dataParaExibicao) {
+		this.dataParaExibicao = dataParaExibicao;
 	}
 
 }

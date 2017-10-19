@@ -111,6 +111,9 @@ public class Aluno implements Serializable {
 	private String cpfResponsavel;
 
 	@Column
+	private String rgResponsavel;
+	
+	@Column
 	private double valorMensal;
 
 	@Column
@@ -775,5 +778,13 @@ public class Aluno implements Serializable {
 
 	public void setFaltas2Bimestre(Integer faltas2Bimestre) {
 		this.faltas2Bimestre = faltas2Bimestre;
+	}
+
+	public String getRgResponsavel() {
+		return rgResponsavel;
+	}
+
+	public void setRgResponsavel(String rgResponsavel) {
+		this.rgResponsavel = rgResponsavel;
 	}
 }

@@ -1,4 +1,4 @@
-package org.escola.enums;
+	package org.escola.enums;
 
 public enum TipoMembro {
 
@@ -7,6 +7,8 @@ public enum TipoMembro {
 	PROFESSOR("Professor"),
 	
 	ADMIM("Administrador"),
+	
+	TESTER("Tester"),
 	
 	ALUNO("Aluno");
 	
