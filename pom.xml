@@ -72,6 +72,13 @@
 			<version>0.0.1-SNAPSHOT</version>
 			<type>jar</type>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.aaf.financeiro</groupId>
+			<artifactId>Financeiro</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
 
 
 	</dependencies>

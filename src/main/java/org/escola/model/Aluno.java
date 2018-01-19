@@ -17,6 +17,7 @@
 package org.escola.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,15 +25,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.aaf.financeiro.util.OfficeUtil;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
 import org.escola.enums.Sexo;
@@ -47,15 +51,49 @@ public class Aluno implements Serializable {
 	@GeneratedValue
 	private Long id;
 
+	@OneToMany
+    private List<Boleto> boletos;
+	
+	@ManyToOne
+    private Aluno irmao1;
+    
+    @ManyToOne
+    private Aluno irmao2;
+    
+    @ManyToOne
+    private Aluno irmao3;
+    
+    @ManyToOne
+    private Aluno irmao4;
+    
+    @Column
+    private Boolean cnabEnviado;
+	
 	@Column
 	private int anoLetivo;
 
+	@Column
+	private Boolean rematricular;
+
+	
 	@Column
 	private Sexo sexo;
 
 	@Column
 	private Boolean removido;
+	
+	@Column
+	private Boolean alergico;
 
+	@Column
+	private Boolean doenca;
+
+	@Column
+	private String nomeAlergias;
+
+	@Column
+	private String nomeDoencas;
+	
 	/** DADOS DO ALUNO */
 	@NotNull
 	@Size(min = 1, max = 250)
@@ -70,6 +108,9 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String login;
+
+	@Column
+	private String emergenciaLigarPara;
 
 	@Column
 	private String codigo;
@@ -98,6 +139,8 @@ public class Aluno implements Serializable {
 	@NotNull
 	private PerioddoEnum periodo;
 
+	private PerioddoEnum periodoProximoAno;
+	
 	@Column
 	private Double anuidade;
 
@@ -109,6 +152,12 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String cpfResponsavel;
+	
+	@Column
+	private int diaVencimento =10;
+	
+	@Column
+	private boolean vencimentoUltimoDia;
 
 	@Column
 	private String rgResponsavel;
@@ -121,6 +170,9 @@ public class Aluno implements Serializable {
 
 	@Column
 	private Date dataMatricula;
+	
+	@Column
+	private Date dataCancelamento;
 
 	@Column
 	private Date dataNascimento;
@@ -239,6 +291,20 @@ public class Aluno implements Serializable {
 	@Column
 	private String observacaoProfessores;
 
+	//DADOS PARA O FINANCEIRO
+	 
+    @Column
+    private Boolean enviadoParaCobrancaCDL;
+    
+    @Column
+    private Boolean enviadoSPC;
+    
+    @Column
+    private Boolean contratoTerminado;
+
+    @Transient
+    private Double valorTotalDevido;
+	
 	public Long getId() {
 		return id;
 	}
@@ -683,6 +749,25 @@ public class Aluno implements Serializable {
 		return true;
 
 	}
+	
+	public List<org.aaf.financeiro.model.Boleto> getBoletosFinanceiro() {
+		List<org.aaf.financeiro.model.Boleto> boletosFinanceiro = new ArrayList<>();
+		if(boletos!= null){
+			for(Boleto boleto : boletos){
+				org.aaf.financeiro.model.Boleto boletoFinanceiro = new org.aaf.financeiro.model.Boleto();
+				boletoFinanceiro.setEmissao(boleto.getEmissao());
+				boletoFinanceiro.setId(boleto.getId());
+				boletoFinanceiro.setValorNominal(boleto.getValorNominal());
+				boletoFinanceiro.setVencimento(boleto.getVencimento());
+				boletoFinanceiro.setNossoNumero(String.valueOf(boleto.getNossoNumero()));
+				boletoFinanceiro.setDataPagamento(OfficeUtil.retornaDataSomenteNumeros(boleto.getDataPagamento()));
+				boletoFinanceiro.setValorPago(boleto.getValorPago());
+				boletosFinanceiro.add(boletoFinanceiro);
+			}
+		}
+		return boletosFinanceiro;
+	}
+
 
 	public String getNomeResponsavel() {
 		return nomeResponsavel;
@@ -786,5 +871,165 @@ public class Aluno implements Serializable {
 
 	public void setRgResponsavel(String rgResponsavel) {
 		this.rgResponsavel = rgResponsavel;
+	}
+
+	public Boolean getRematricular() {
+		return rematricular;
+	}
+
+	public void setRematricular(Boolean rematricular) {
+		this.rematricular = rematricular;
+	}
+
+	public String getEmergenciaLigarPara() {
+		return emergenciaLigarPara;
+	}
+
+	public void setEmergenciaLigarPara(String emergenciaLigarPara) {
+		this.emergenciaLigarPara = emergenciaLigarPara;
+	}
+
+	public Boolean getAlergico() {
+		return alergico;
+	}
+
+	public void setAlergico(Boolean alergico) {
+		this.alergico = alergico;
+	}
+
+	public Boolean getDoenca() {
+		return doenca;
+	}
+
+	public void setDoenca(Boolean doenca) {
+		this.doenca = doenca;
+	}
+
+	public String getNomeDoencas() {
+		return nomeDoencas;
+	}
+
+	public void setNomeDoencas(String nomeDoencas) {
+		this.nomeDoencas = nomeDoencas;
+	}
+
+	public String getNomeAlergias() {
+		return nomeAlergias;
+	}
+
+	public void setNomeAlergias(String nomeAlergias) {
+		this.nomeAlergias = nomeAlergias;
+	}
+
+	public List<Boleto> getBoletos() {
+		return boletos;
+	}
+
+	public void setBoletos(List<Boleto> boletos) {
+		this.boletos = boletos;
+	}
+
+	public Aluno getIrmao1() {
+		return irmao1;
+	}
+
+	public void setIrmao1(Aluno irmao1) {
+		this.irmao1 = irmao1;
+	}
+
+	public Aluno getIrmao2() {
+		return irmao2;
+	}
+
+	public void setIrmao2(Aluno irmao2) {
+		this.irmao2 = irmao2;
+	}
+
+	public Aluno getIrmao3() {
+		return irmao3;
+	}
+
+	public void setIrmao3(Aluno irmao3) {
+		this.irmao3 = irmao3;
+	}
+
+	public Aluno getIrmao4() {
+		return irmao4;
+	}
+
+	public void setIrmao4(Aluno irmao4) {
+		this.irmao4 = irmao4;
+	}
+
+	public PerioddoEnum getPeriodoProximoAno() {
+		return periodoProximoAno;
+	}
+
+	public void setPeriodoProximoAno(PerioddoEnum periodoProximoAno) {
+		this.periodoProximoAno = periodoProximoAno;
+	}
+
+	public int getDiaVencimento() {
+		return diaVencimento;
+	}
+
+	public void setDiaVencimento(int diaVencimento) {
+		this.diaVencimento = diaVencimento;
+	}
+
+	public boolean isVencimentoUltimoDia() {
+		return vencimentoUltimoDia;
+	}
+
+	public void setVencimentoUltimoDia(boolean vencimentoUltimoDia) {
+		this.vencimentoUltimoDia = vencimentoUltimoDia;
+	}
+
+	public Boolean getEnviadoParaCobrancaCDL() {
+		return enviadoParaCobrancaCDL;
+	}
+
+	public void setEnviadoParaCobrancaCDL(Boolean enviadoParaCobrancaCDL) {
+		this.enviadoParaCobrancaCDL = enviadoParaCobrancaCDL;
+	}
+
+	public Boolean getEnviadoSPC() {
+		return enviadoSPC;
+	}
+
+	public void setEnviadoSPC(Boolean enviadoSPC) {
+		this.enviadoSPC = enviadoSPC;
+	}
+
+	public Boolean getContratoTerminado() {
+		return contratoTerminado;
+	}
+
+	public void setContratoTerminado(Boolean contratoTerminado) {
+		this.contratoTerminado = contratoTerminado;
+	}
+
+	public Double getValorTotalDevido() {
+		return valorTotalDevido;
+	}
+
+	public void setValorTotalDevido(Double valorTotalDevido) {
+		this.valorTotalDevido = valorTotalDevido;
+	}
+
+	public Boolean getCnabEnviado() {
+		return cnabEnviado;
+	}
+
+	public void setCnabEnviado(Boolean cnabEnviado) {
+		this.cnabEnviado = cnabEnviado;
+	}
+
+	public Date getDataCancelamento() {
+		return dataCancelamento;
+	}
+
+	public void setDataCancelamento(Date dataCancelamento) {
+		this.dataCancelamento = dataCancelamento;
 	}
 }

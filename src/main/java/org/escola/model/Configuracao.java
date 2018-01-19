@@ -44,6 +44,10 @@ public class Configuracao implements Serializable {
     @Column
     private BimestreEnum bimestre;
     
+    @Column
+    private long sequencialArquivoCNAB;
+    
+    
 	public Long getId() {
 		return id;
 	}
@@ -68,6 +72,14 @@ public class Configuracao implements Serializable {
 
 	public void setBimestre(BimestreEnum bimestre) {
 		this.bimestre = bimestre;
+	}
+
+	public long getSequencialArquivoCNAB() {
+		return sequencialArquivoCNAB;
+	}
+
+	public void setSequencialArquivoCNAB(long sequencialArquivoCNAB) {
+		this.sequencialArquivoCNAB = sequencialArquivoCNAB;
 	}
 
 }
