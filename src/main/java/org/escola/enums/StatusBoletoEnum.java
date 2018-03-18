@@ -7,7 +7,8 @@ public enum StatusBoletoEnum {
 	ATRASADO("Atrasado"),
 	VENCE_HOJE("Vence Hoje"),
 	RENEGOCIADO_A_VENCER("Renegociado "),
-	RENEGOCIADO_ATRASADO("Renegociado atrasado");
+	RENEGOCIADO_ATRASADO("Renegociado atrasado"),
+	CANCELADO("CANCELADO");
 	
 	
 	private String name;

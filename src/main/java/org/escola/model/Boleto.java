@@ -73,6 +73,9 @@ public class Boleto  implements Serializable{
 	@Column
 	private Boolean baixaGerada;
 	
+	@Column
+	private Boolean cancelado;
+	
 	@ManyToOne
 	private Aluno pagador;
 	
@@ -178,6 +181,14 @@ public class Boleto  implements Serializable{
 
 	public void setConciliacaoPorExtrato(Boolean conciliacaoPorExtrato) {
 		this.conciliacaoPorExtrato = conciliacaoPorExtrato;
+	}
+
+	public Boolean getCancelado() {
+		return cancelado;
+	}
+
+	public void setCancelado(Boolean cancelado) {
+		this.cancelado = cancelado;
 	}
 
     

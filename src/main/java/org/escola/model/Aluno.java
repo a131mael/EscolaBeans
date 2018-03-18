@@ -69,6 +69,9 @@ public class Aluno implements Serializable {
     @Column
     private Boolean cnabEnviado;
 	
+    @Column
+    private Boolean verificadoOk;
+    
 	@Column
 	private int anoLetivo;
 
@@ -81,6 +84,9 @@ public class Aluno implements Serializable {
 
 	@Column
 	private Boolean removido;
+	
+	 @Column
+	 private Boolean restaurada;
 	
 	@Column
 	private Boolean alergico;
@@ -1031,5 +1037,21 @@ public class Aluno implements Serializable {
 
 	public void setDataCancelamento(Date dataCancelamento) {
 		this.dataCancelamento = dataCancelamento;
+	}
+
+	public Boolean getRestaurada() {
+		return restaurada;
+	}
+
+	public void setRestaurada(Boolean restaurada) {
+		this.restaurada = restaurada;
+	}
+
+	public Boolean getVerificadoOk() {
+		return verificadoOk;
+	}
+
+	public void setVerificadoOk(Boolean verificadoOk) {
+		this.verificadoOk = verificadoOk;
 	}
 }
