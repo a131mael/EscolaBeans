@@ -62,6 +62,9 @@ public class Boleto  implements Serializable{
 	private Boolean atrasado;
 	
 	@Column
+	private Boolean manterAposRemovido;
+	
+	@Column
 	private Boolean baixaManual;
 	
 	@Column
@@ -189,6 +192,14 @@ public class Boleto  implements Serializable{
 
 	public void setCancelado(Boolean cancelado) {
 		this.cancelado = cancelado;
+	}
+
+	public Boolean getManterAposRemovido() {
+		return manterAposRemovido;
+	}
+
+	public void setManterAposRemovido(Boolean manterAposRemovido) {
+		this.manterAposRemovido = manterAposRemovido;
 	}
 
     

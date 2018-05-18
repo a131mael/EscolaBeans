@@ -75,7 +75,7 @@ public class Avaliacao implements Serializable {
 	
 	@Column
 	private Date data;
-	
+
 	@Override
 	public String toString() {
 		return nome;
