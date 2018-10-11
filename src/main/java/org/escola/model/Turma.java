@@ -20,6 +20,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -54,10 +55,10 @@ public class Turma implements Serializable {
     private PerioddoEnum periodo;
     
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<AlunoTurma> alunosTurmas;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<ProfessorTurma> professoresTurma;
     
     @Transient

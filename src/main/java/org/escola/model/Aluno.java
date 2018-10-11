@@ -23,6 +23,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -36,6 +37,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.aaf.dto.AlunoDTO;
 import org.aaf.financeiro.util.OfficeUtil;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
@@ -51,8 +53,9 @@ public class Aluno implements Serializable {
 	@GeneratedValue
 	private Long id;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
     private List<Boleto> boletos;
+	
 	
 	@ManyToOne
     private Aluno irmao1;
@@ -106,10 +109,11 @@ public class Aluno implements Serializable {
 	@Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
 	private String nomeAluno;
 
-	@OneToMany
+	
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<AlunoTurma> alunosTurmas;
 
-	@OneToMany
+	@OneToMany(fetch = FetchType.LAZY)
 	private List<AlunoAvaliacao> avaliacoes;
 
 	@Column
@@ -155,6 +159,12 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String nomeResponsavel;
+	
+	@Column
+	private String nomePaiResponsavel;
+	
+	@Column
+	private String nomeMaeResponsavel;
 
 	@Column
 	private String cpfResponsavel;
@@ -726,6 +736,16 @@ public class Aluno implements Serializable {
 	public void setAvaliacoes(List<AlunoAvaliacao> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
+	
+	public AlunoDTO getDTO(){
+		AlunoDTO alunoDTO = new AlunoDTO();
+		alunoDTO.setCodigo(codigo);
+		alunoDTO.setId(id);
+		alunoDTO.setNomeAluno(nomeAluno);
+		alunoDTO.setPeriodo(periodo.getName());
+		alunoDTO.setSerie(serie.getName());
+		return  alunoDTO;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -1053,5 +1073,21 @@ public class Aluno implements Serializable {
 
 	public void setVerificadoOk(Boolean verificadoOk) {
 		this.verificadoOk = verificadoOk;
+	}
+
+	public String getNomePaiResponsavel() {
+		return nomePaiResponsavel;
+	}
+
+	public void setNomePaiResponsavel(String nomePaiResponsavel) {
+		this.nomePaiResponsavel = nomePaiResponsavel;
+	}
+
+	public String getNomeMaeResponsavel() {
+		return nomeMaeResponsavel;
+	}
+
+	public void setNomeMaeResponsavel(String nomeMaeResponsavel) {
+		this.nomeMaeResponsavel = nomeMaeResponsavel;
 	}
 }

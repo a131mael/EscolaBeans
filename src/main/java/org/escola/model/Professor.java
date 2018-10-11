@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -60,7 +61,7 @@ public class Professor implements Serializable {
     @Column
     private EspecialidadeEnum especialidade;
     
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Avaliacao> avaliacoes;
     
     @NotNull
@@ -105,7 +106,7 @@ public class Professor implements Serializable {
     @Column
     private String rg ;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     private List<ProfessorTurma> turmas;
     
 	public List<ProfessorTurma> getTurmas() {
