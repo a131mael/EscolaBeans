@@ -54,6 +54,7 @@ public class Aluno implements Serializable {
 	private Long id;
 
 	@OneToMany(fetch = FetchType.LAZY)
+	@Deprecated
     private List<Boleto> boletos;
 	
 	
@@ -70,6 +71,7 @@ public class Aluno implements Serializable {
     private Aluno irmao4;
     
     @Column
+    @Deprecated
     private Boolean cnabEnviado;
 	
     @Column
@@ -138,12 +140,15 @@ public class Aluno implements Serializable {
 	private String endereco;
 
 	@Column
+	@Deprecated
 	private String bairro;
 
 	@Column
+	@Deprecated
 	private String cep;
 
 	@Column
+	@Deprecated
 	private String cidade;
 
 	@NotNull
@@ -152,33 +157,42 @@ public class Aluno implements Serializable {
 	private PerioddoEnum periodoProximoAno;
 	
 	@Column
+	@Deprecated
 	private Double anuidade;
 
 	@Column
+	@Deprecated
 	private Integer numeroParcelas;
 
 	@Column
+	@Deprecated
 	private String nomeResponsavel;
 	
 	@Column
+	@Deprecated
 	private String nomePaiResponsavel;
 	
 	@Column
+	@Deprecated
 	private String nomeMaeResponsavel;
 
 	@Column
+	@Deprecated
 	private String cpfResponsavel;
 	
 	@Column
 	private int diaVencimento =10;
 	
 	@Column
+	@Deprecated
 	private boolean vencimentoUltimoDia;
 
 	@Column
+	@Deprecated
 	private String rgResponsavel;
 	
 	@Column
+	@Deprecated
 	private double valorMensal;
 
 	@Column
@@ -188,6 +202,7 @@ public class Aluno implements Serializable {
 	private Date dataMatricula;
 	
 	@Column
+	@Deprecated
 	private Date dataCancelamento;
 
 	@Column
@@ -310,12 +325,15 @@ public class Aluno implements Serializable {
 	//DADOS PARA O FINANCEIRO
 	 
     @Column
+    @Deprecated
     private Boolean enviadoParaCobrancaCDL;
     
     @Column
+    @Deprecated
     private Boolean enviadoSPC;
     
     @Column
+    @Deprecated
     private Boolean contratoTerminado;
 
     @Transient
