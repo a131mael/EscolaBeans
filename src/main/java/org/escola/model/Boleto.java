@@ -34,12 +34,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
-public class Boleto  implements Serializable{
+public class Boleto  implements Serializable, Comparable<Boleto>{
 
 	@Id
     @GeneratedValue
     private Long id;
 
+	@ManyToOne
+	private ContratoAluno contrato;
+	
 	@Column
     private Date vencimento;
     
@@ -202,5 +205,23 @@ public class Boleto  implements Serializable{
 		this.manterAposRemovido = manterAposRemovido;
 	}
 
+	public ContratoAluno getContrato() {
+		return contrato;
+	}
+
+	public void setContrato(ContratoAluno contrato) {
+		this.contrato = contrato;
+	}
+
+	@Override
+	public int compareTo(Boleto o) {
+		if(this.getId() > o.getId()){
+			return -1;
+		}else if(this.getId() < o.getId()){
+			return 1;
+		}
+		
+		return 0;
+	}
     
 }

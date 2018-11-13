@@ -17,9 +17,12 @@
 package org.escola.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -33,11 +36,13 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.aaf.financeiro.util.OfficeUtil;
+
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
-public class ContratoAluno implements Serializable {
+public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	@Id
 	@GeneratedValue(generator = "GENERATE_contratoAluno", strategy = GenerationType.SEQUENCE)
@@ -47,7 +52,7 @@ public class ContratoAluno implements Serializable {
 	@ManyToOne
 	private Aluno aluno;
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.LAZY, cascade= CascadeType.ALL)
 	private List<Boleto> boletos;
 
 	@Column
@@ -63,10 +68,10 @@ public class ContratoAluno implements Serializable {
 	private String nomePaiResponsavel;
 
 	@Column
-	private String cnabEnviado;
+	private Boolean cnabEnviado;
 	
 	@Column
-	private String cancelado;
+	private Boolean cancelado;
 
 	@Column
 	private String numero;
@@ -109,6 +114,12 @@ public class ContratoAluno implements Serializable {
 	
 	@Column
     private Boolean enviadoSPC;
+	
+	@Column
+	private int diaVencimento =10;	
+	
+	@Column 
+    private String endereco;
 	
 	@Column
     private Boolean contratoTerminado;
@@ -225,19 +236,22 @@ public class ContratoAluno implements Serializable {
 		this.numero = numero;
 	}
 
-	public String getCancelado() {
+	public Boolean getCancelado() {
+		if(cancelado == null){
+			return false;
+		}
 		return cancelado;
 	}
 
-	public void setCancelado(String cancelado) {
+	public void setCancelado(Boolean cancelado) {
 		this.cancelado = cancelado;
 	}
 
-	public String getCnabEnviado() {
+	public Boolean getCnabEnviado() {
 		return cnabEnviado;
 	}
 
-	public void setCnabEnviado(String cnabEnviado) {
+	public void setCnabEnviado(Boolean cnabEnviado) {
 		this.cnabEnviado = cnabEnviado;
 	}
 
@@ -274,6 +288,9 @@ public class ContratoAluno implements Serializable {
 	}
 
 	public List<Boleto> getBoletos() {
+		if(boletos != null){
+			Collections.sort(boletos);
+		}
 		return boletos;
 	}
 
@@ -303,6 +320,130 @@ public class ContratoAluno implements Serializable {
 
 	public void setDataCriacaoContrato(Date dataCriacaoContrato) {
 		this.dataCriacaoContrato = dataCriacaoContrato;
+	}
+
+	public int getDiaVencimento() {
+		return diaVencimento;
+	}
+
+	public void setDiaVencimento(int diaVencimento) {
+		this.diaVencimento = diaVencimento;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+	
+	public boolean isContratoAtivo(){
+		if(boletos != null){
+			for(Boleto boleto: boletos){
+				if(boleto != null){
+					if( (boleto.getCancelado() == null ||  !boleto.getCancelado())){
+						if(boleto.getValorPago()== null ||  (boleto.getValorPago() != null && boleto.getValorPago()<boleto.getValorNominal()-30) ){
+							return true;
+						}
+					}	
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	public ContratoAluno clone(){
+		ContratoAluno contratoPersistence = new ContratoAluno();
+		if (this.getEndereco() != null) {
+			contratoPersistence.setEndereco(removeCaracteresEspeciais(this.getEndereco()));
+		}
+		if (this.getBairro() != null) {
+			contratoPersistence.setBairro(removeCaracteresEspeciais(this.getBairro().replace("ç", "c")));
+
+		}
+		contratoPersistence.setCep(this.getCep());
+		if (this.getCidade() != null) {
+			contratoPersistence.setCidade(removeCaracteresEspeciais(this.getCidade().replace("ç", "c")));
+		}
+		contratoPersistence.setValorMensal(this.getValorMensal());
+		
+
+		contratoPersistence.setAnuidade(this.getAnuidade() != null ? this.getAnuidade() : 0);
+		if (this.getBairro() != null) {
+			contratoPersistence.setBairro(removeCaracteresEspeciais(this.getBairro().replace("ç", "c")));
+		}
+		
+		contratoPersistence.setCep(this.getCep());
+		if (this.getCidade() != null) {
+			contratoPersistence.setCidade(removeCaracteresEspeciais(this.getCidade().replace("ç", "c")));
+		}
+	//	contratoPersistence.setCpfPai(this.getCpfPai());
+		if (this.getCpfResponsavel() != null) {
+			contratoPersistence.setCpfResponsavel(this.getCpfResponsavel().replace(".", "").replace("-", ""));
+		}
+		contratoPersistence.setRgResponsavel(this.getRgResponsavel());
+		if (this.getNomeResponsavel() != null) {
+			contratoPersistence.setNomeResponsavel(removeCaracteresEspeciais(this.getNomeResponsavel().toUpperCase()));
+		}
+		
+		if (this.getNomePaiResponsavel() != null) {
+			contratoPersistence.setNomePaiResponsavel(removeCaracteresEspeciais(this.getNomePaiResponsavel().toUpperCase()));
+		}
+		
+		if (this.getNomeMaeResponsavel() != null) {
+			contratoPersistence.setNomeMaeResponsavel(removeCaracteresEspeciais(this.getNomeMaeResponsavel().toUpperCase()));
+		}
+		
+		contratoPersistence.setNumeroParcelas(this.getNumeroParcelas());
+		
+		contratoPersistence.setValorMensal(this.getValorMensal());
+		contratoPersistence.setDiaVencimento(this.getDiaVencimento());
+		contratoPersistence.setVencimentoUltimoDia(this.getVencimentoUltimoDia());
+		if (contratoPersistence.getCidade() != null && contratoPersistence.getCidade().equalsIgnoreCase("Palhoa")) {
+			contratoPersistence.setCidade("Palhoca");
+		}
+		if (contratoPersistence.getBairro() != null && contratoPersistence.getBairro().equalsIgnoreCase("Palhoa")) {
+			contratoPersistence.setBairro("Palhoca");
+		}
+
+		contratoPersistence.setCnabEnviado(this.getCnabEnviado());
+		return contratoPersistence;
+	}
+	
+	public List<org.aaf.financeiro.model.Boleto> getBoletosFinanceiro() {
+		List<org.aaf.financeiro.model.Boleto> boletosFinanceiro = new ArrayList<>();
+		if(boletos!= null){
+			for(Boleto boleto : boletos){
+				org.aaf.financeiro.model.Boleto boletoFinanceiro = new org.aaf.financeiro.model.Boleto();
+				boletoFinanceiro.setEmissao(boleto.getEmissao());
+				boletoFinanceiro.setId(boleto.getId());
+				boletoFinanceiro.setValorNominal(boleto.getValorNominal());
+				boletoFinanceiro.setVencimento(boleto.getVencimento());
+				boletoFinanceiro.setNossoNumero(String.valueOf(boleto.getNossoNumero()));
+				boletoFinanceiro.setDataPagamento(OfficeUtil.retornaDataSomenteNumeros(boleto.getDataPagamento()));
+				boletoFinanceiro.setValorPago(boleto.getValorPago());
+				boletosFinanceiro.add(boletoFinanceiro);
+			}
+		}
+		return boletosFinanceiro;
+	}
+
+	public String removeCaracteresEspeciais(String texto) {
+		texto = texto.replaceAll("[^aA-zZ-Z0-9 ]", "");
+		return texto;
+	}
+
+	@Override
+	public int compareTo(ContratoAluno o) {
+		if(this.getId() > o.getId()){
+			return -1;
+		}else if(this.getId() < o.getId()){
+			return 1;
+		}
+		
+		return 0;
 	}
 
 }

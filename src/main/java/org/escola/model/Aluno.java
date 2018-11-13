@@ -18,9 +18,11 @@ package org.escola.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -38,7 +40,6 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.aaf.dto.AlunoDTO;
-import org.aaf.financeiro.util.OfficeUtil;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
 import org.escola.enums.Sexo;
@@ -46,53 +47,46 @@ import org.escola.enums.Sexo;
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id") )
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
 public class Aluno implements Serializable {
 
 	@Id
 	@GeneratedValue
 	private Long id;
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@Deprecated
-    private List<Boleto> boletos;
-	
-	
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ContratoAluno> contratos;
+
 	@ManyToOne
-    private Aluno irmao1;
-    
-    @ManyToOne
-    private Aluno irmao2;
-    
-    @ManyToOne
-    private Aluno irmao3;
-    
-    @ManyToOne
-    private Aluno irmao4;
-    
-    @Column
-    @Deprecated
-    private Boolean cnabEnviado;
-	
-    @Column
-    private Boolean verificadoOk;
-    
+	private Aluno irmao1;
+
+	@ManyToOne
+	private Aluno irmao2;
+
+	@ManyToOne
+	private Aluno irmao3;
+
+	@ManyToOne
+	private Aluno irmao4;
+
+	@Column
+	private Boolean verificadoOk;
+
 	@Column
 	private int anoLetivo;
 
 	@Column
 	private Boolean rematricular;
 
-	
 	@Column
 	private Sexo sexo;
 
 	@Column
 	private Boolean removido;
-	
-	 @Column
-	 private Boolean restaurada;
-	
+
+	@Column
+	private Boolean restaurada;
+
 	@Column
 	private Boolean alergico;
 
@@ -104,14 +98,13 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String nomeDoencas;
-	
+
 	/** DADOS DO ALUNO */
 	@NotNull
 	@Size(min = 1, max = 250)
 	@Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
 	private String nomeAluno;
 
-	
 	@OneToMany(fetch = FetchType.LAZY)
 	private List<AlunoTurma> alunosTurmas;
 
@@ -136,71 +129,17 @@ public class Aluno implements Serializable {
 	@NotNull
 	private Serie serie;
 
-	@Column
-	private String endereco;
-
-	@Column
-	@Deprecated
-	private String bairro;
-
-	@Column
-	@Deprecated
-	private String cep;
-
-	@Column
-	@Deprecated
-	private String cidade;
-
 	@NotNull
 	private PerioddoEnum periodo;
 
 	private PerioddoEnum periodoProximoAno;
-	
-	@Column
-	@Deprecated
-	private Double anuidade;
-
-	@Column
-	@Deprecated
-	private Integer numeroParcelas;
-
-	@Column
-	@Deprecated
-	private String nomeResponsavel;
-	
-	@Column
-	@Deprecated
-	private String nomePaiResponsavel;
-	
-	@Column
-	@Deprecated
-	private String nomeMaeResponsavel;
-
-	@Column
-	@Deprecated
-	private String cpfResponsavel;
-	
-	@Column
-	private int diaVencimento =10;
-	
-	@Column
-	@Deprecated
-	private boolean vencimentoUltimoDia;
-
-	@Column
-	@Deprecated
-	private String rgResponsavel;
-	
-	@Column
-	@Deprecated
-	private double valorMensal;
 
 	@Column
 	private String telefone;
 
 	@Column
 	private Date dataMatricula;
-	
+
 	@Column
 	@Deprecated
 	private Date dataCancelamento;
@@ -322,23 +261,90 @@ public class Aluno implements Serializable {
 	@Column
 	private String observacaoProfessores;
 
-	//DADOS PARA O FINANCEIRO
-	 
-    @Column
-    @Deprecated
-    private Boolean enviadoParaCobrancaCDL;
-    
-    @Column
-    @Deprecated
-    private Boolean enviadoSPC;
-    
-    @Column
-    @Deprecated
-    private Boolean contratoTerminado;
+	// DADOS PARA O FINANCEIRO
 
-    @Transient
-    private Double valorTotalDevido;
-	
+	@Column
+	@Deprecated
+	private Boolean enviadoParaCobrancaCDL;
+
+	@Column
+	@Deprecated
+	private Boolean enviadoSPC;
+
+	@Column
+	@Deprecated
+	private Boolean contratoTerminado;
+
+	@Transient
+	private Double valorTotalDevido;
+
+	// TODO remover os atributos daqui para baixo
+
+	@Column
+	@Deprecated
+	private Boolean cnabEnviado;
+
+	@OneToMany(fetch = FetchType.LAZY)
+	@Deprecated
+	private List<Boleto> boletos;
+
+	@Column
+	@Deprecated
+	private String endereco;
+
+	@Column
+	@Deprecated
+	private String bairro;
+
+	@Column
+	@Deprecated
+	private String cep;
+
+	@Column
+	@Deprecated
+	private String cidade;
+
+	@Column
+	@Deprecated
+	private Double anuidade;
+
+	@Column
+	@Deprecated
+	private Integer numeroParcelas;
+
+	@Column
+	@Deprecated
+	private String nomeResponsavel;
+
+	@Column
+	@Deprecated
+	private String nomePaiResponsavel;
+
+	@Column
+	@Deprecated
+	private String nomeMaeResponsavel;
+
+	@Column
+	@Deprecated
+	private String cpfResponsavel;
+
+	@Column
+	private int diaVencimento = 10;
+
+	@Column
+	@Deprecated
+	private boolean vencimentoUltimoDia;
+
+	@Column
+	@Deprecated
+	private String rgResponsavel;
+
+	@Column
+	@Deprecated
+	private double valorMensal;
+
+	// TODO remover atributos ATEH aqui
+
 	public Long getId() {
 		return id;
 	}
@@ -635,38 +641,6 @@ public class Aluno implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
 	public String getNomeAluno() {
 		return nomeAluno;
 	}
@@ -681,30 +655,6 @@ public class Aluno implements Serializable {
 
 	public void setPeriodo(PerioddoEnum periodo) {
 		this.periodo = periodo;
-	}
-
-	public Double getAnuidade() {
-		return anuidade;
-	}
-
-	public void setAnuidade(double anuidade) {
-		this.anuidade = anuidade;
-	}
-
-	public Integer getNumeroParcelas() {
-		return numeroParcelas;
-	}
-
-	public void setNumeroParcelas(Integer numeroParcelas) {
-		this.numeroParcelas = numeroParcelas;
-	}
-
-	public double getValorMensal() {
-		return valorMensal;
-	}
-
-	public void setValorMensal(double valorMensal) {
-		this.valorMensal = valorMensal;
 	}
 
 	public List<AlunoTurma> getAlunosTurmas() {
@@ -754,15 +704,15 @@ public class Aluno implements Serializable {
 	public void setAvaliacoes(List<AlunoAvaliacao> avaliacoes) {
 		this.avaliacoes = avaliacoes;
 	}
-	
-	public AlunoDTO getDTO(){
+
+	public AlunoDTO getDTO() {
 		AlunoDTO alunoDTO = new AlunoDTO();
 		alunoDTO.setCodigo(codigo);
 		alunoDTO.setId(id);
 		alunoDTO.setNomeAluno(nomeAluno);
 		alunoDTO.setPeriodo(periodo.getName());
 		alunoDTO.setSerie(serie.getName());
-		return  alunoDTO;
+		return alunoDTO;
 	}
 
 	@Override
@@ -793,40 +743,25 @@ public class Aluno implements Serializable {
 		return true;
 
 	}
-	
+
+	@Deprecated
 	public List<org.aaf.financeiro.model.Boleto> getBoletosFinanceiro() {
 		List<org.aaf.financeiro.model.Boleto> boletosFinanceiro = new ArrayList<>();
-		if(boletos!= null){
-			for(Boleto boleto : boletos){
-				org.aaf.financeiro.model.Boleto boletoFinanceiro = new org.aaf.financeiro.model.Boleto();
-				boletoFinanceiro.setEmissao(boleto.getEmissao());
-				boletoFinanceiro.setId(boleto.getId());
-				boletoFinanceiro.setValorNominal(boleto.getValorNominal());
-				boletoFinanceiro.setVencimento(boleto.getVencimento());
-				boletoFinanceiro.setNossoNumero(String.valueOf(boleto.getNossoNumero()));
-				boletoFinanceiro.setDataPagamento(OfficeUtil.retornaDataSomenteNumeros(boleto.getDataPagamento()));
-				boletoFinanceiro.setValorPago(boleto.getValorPago());
-				boletosFinanceiro.add(boletoFinanceiro);
-			}
-		}
+		/*
+		 * if(boletos!= null){ for(Boleto boleto : boletos){
+		 * org.aaf.financeiro.model.Boleto boletoFinanceiro = new
+		 * org.aaf.financeiro.model.Boleto();
+		 * boletoFinanceiro.setEmissao(boleto.getEmissao());
+		 * boletoFinanceiro.setId(boleto.getId());
+		 * boletoFinanceiro.setValorNominal(boleto.getValorNominal());
+		 * boletoFinanceiro.setVencimento(boleto.getVencimento());
+		 * boletoFinanceiro.setNossoNumero(String.valueOf(boleto.getNossoNumero(
+		 * ))); boletoFinanceiro.setDataPagamento(OfficeUtil.
+		 * retornaDataSomenteNumeros(boleto.getDataPagamento()));
+		 * boletoFinanceiro.setValorPago(boleto.getValorPago());
+		 * boletosFinanceiro.add(boletoFinanceiro); } }
+		 */
 		return boletosFinanceiro;
-	}
-
-
-	public String getNomeResponsavel() {
-		return nomeResponsavel;
-	}
-
-	public void setNomeResponsavel(String nomeResponsavel) {
-		this.nomeResponsavel = nomeResponsavel;
-	}
-
-	public String getCpfResponsavel() {
-		return cpfResponsavel;
-	}
-
-	public void setCpfResponsavel(String cpfResponsavel) {
-		this.cpfResponsavel = cpfResponsavel;
 	}
 
 	public String getObservacaoProfessores() {
@@ -909,14 +844,6 @@ public class Aluno implements Serializable {
 		this.faltas2Bimestre = faltas2Bimestre;
 	}
 
-	public String getRgResponsavel() {
-		return rgResponsavel;
-	}
-
-	public void setRgResponsavel(String rgResponsavel) {
-		this.rgResponsavel = rgResponsavel;
-	}
-
 	public Boolean getRematricular() {
 		return rematricular;
 	}
@@ -965,14 +892,6 @@ public class Aluno implements Serializable {
 		this.nomeAlergias = nomeAlergias;
 	}
 
-	public List<Boleto> getBoletos() {
-		return boletos;
-	}
-
-	public void setBoletos(List<Boleto> boletos) {
-		this.boletos = boletos;
-	}
-
 	public Aluno getIrmao1() {
 		return irmao1;
 	}
@@ -1013,22 +932,6 @@ public class Aluno implements Serializable {
 		this.periodoProximoAno = periodoProximoAno;
 	}
 
-	public int getDiaVencimento() {
-		return diaVencimento;
-	}
-
-	public void setDiaVencimento(int diaVencimento) {
-		this.diaVencimento = diaVencimento;
-	}
-
-	public boolean isVencimentoUltimoDia() {
-		return vencimentoUltimoDia;
-	}
-
-	public void setVencimentoUltimoDia(boolean vencimentoUltimoDia) {
-		this.vencimentoUltimoDia = vencimentoUltimoDia;
-	}
-
 	public Boolean getEnviadoParaCobrancaCDL() {
 		return enviadoParaCobrancaCDL;
 	}
@@ -1061,14 +964,6 @@ public class Aluno implements Serializable {
 		this.valorTotalDevido = valorTotalDevido;
 	}
 
-	public Boolean getCnabEnviado() {
-		return cnabEnviado;
-	}
-
-	public void setCnabEnviado(Boolean cnabEnviado) {
-		this.cnabEnviado = cnabEnviado;
-	}
-
 	public Date getDataCancelamento() {
 		return dataCancelamento;
 	}
@@ -1091,6 +986,189 @@ public class Aluno implements Serializable {
 
 	public void setVerificadoOk(Boolean verificadoOk) {
 		this.verificadoOk = verificadoOk;
+	}
+
+	public List<ContratoAluno> getContratos() {
+		if (contratos != null) {
+			Collections.sort(contratos);
+		}
+		return contratos;
+	}
+
+	public void setContratos(List<ContratoAluno> contratos) {
+		this.contratos = contratos;
+	}
+
+	public List<Boleto> getBoletos(int ano) {
+		List<Boleto> boletos = new ArrayList<>();
+		for (ContratoAluno contrato : contratos) {
+			if (contrato.getAno() == ano) {
+				boletos.addAll(contrato.getBoletos());
+			}
+		}
+		return boletos;
+	}
+
+	public List<Boleto> getBoletos2() {
+		List<Boleto> boletos = new ArrayList<>();
+		for (ContratoAluno contrato : contratos) {
+			boletos.addAll(contrato.getBoletos());
+		}
+		return boletos;
+	}
+
+	public ContratoAluno getContratoVigente() {
+		ContratoAluno contratoAtivo = null;
+		if (contratos != null) {
+			for (ContratoAluno contrato : contratos) {
+				if (contrato != null) {
+					if (contrato.getCancelado() == null || !contrato.getCancelado()) {
+						contratoAtivo = contrato;
+					}
+				}
+			}
+		}
+
+		return contratoAtivo;
+	}
+
+	public List<ContratoAluno> getContratosVigentes() {
+		List<ContratoAluno> contratosAtivo = new ArrayList<>();
+		for (ContratoAluno contrato : contratos) {
+			if (contrato.isContratoAtivo()) {
+				contratosAtivo.add(0, contrato);
+			}
+		}
+
+		return contratosAtivo;
+	}
+
+	public ContratoAluno getUltimoContrato() {
+		if (contratos == null) {
+			return null;
+		}
+		ContratoAluno conts = new ContratoAluno();
+		for (ContratoAluno contrato : contratos) {
+			if (conts == null || conts.getNumero() == null || contrato.getNumero().equalsIgnoreCase("")
+					|| Integer.parseInt(contrato.getNumero()) > Integer.parseInt(conts.getNumero())) {
+				conts = contrato;
+			}
+		}
+
+		return conts;
+	}
+
+	// TODO IMPORTANTE REMOVER TUDO DAQUI PARA BAIO
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public Double getAnuidade() {
+		return anuidade;
+	}
+
+	public void setAnuidade(double anuidade) {
+		this.anuidade = anuidade;
+	}
+
+	public Integer getNumeroParcelas() {
+		return numeroParcelas;
+	}
+
+	public void setNumeroParcelas(Integer numeroParcelas) {
+		this.numeroParcelas = numeroParcelas;
+	}
+
+	public double getValorMensal() {
+		return valorMensal;
+	}
+
+	public void setValorMensal(double valorMensal) {
+		this.valorMensal = valorMensal;
+	}
+
+	public String getNomeResponsavel() {
+		return nomeResponsavel;
+	}
+
+	public void setNomeResponsavel(String nomeResponsavel) {
+		this.nomeResponsavel = nomeResponsavel;
+	}
+
+	public String getCpfResponsavel() {
+		return cpfResponsavel;
+	}
+
+	public void setCpfResponsavel(String cpfResponsavel) {
+		this.cpfResponsavel = cpfResponsavel;
+	}
+
+	public String getRgResponsavel() {
+		return rgResponsavel;
+	}
+
+	public void setRgResponsavel(String rgResponsavel) {
+		this.rgResponsavel = rgResponsavel;
+	}
+
+	public List<Boleto> getBoletos() {
+		return boletos;
+	}
+
+	public void setBoletos(List<Boleto> boletos) {
+		this.boletos = boletos;
+	}
+
+	public int getDiaVencimento() {
+		return diaVencimento;
+	}
+
+	public void setDiaVencimento(int diaVencimento) {
+		this.diaVencimento = diaVencimento;
+	}
+
+	public boolean isVencimentoUltimoDia() {
+		return vencimentoUltimoDia;
+	}
+
+	public void setVencimentoUltimoDia(boolean vencimentoUltimoDia) {
+		this.vencimentoUltimoDia = vencimentoUltimoDia;
+	}
+
+	public Boolean getCnabEnviado() {
+		return cnabEnviado;
+	}
+
+	public void setCnabEnviado(Boolean cnabEnviado) {
+		this.cnabEnviado = cnabEnviado;
 	}
 
 	public String getNomePaiResponsavel() {
