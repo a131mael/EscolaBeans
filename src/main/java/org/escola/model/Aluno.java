@@ -285,7 +285,6 @@ public class Aluno implements Serializable {
 	private Boolean cnabEnviado;
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@Deprecated
 	private List<Boleto> boletos;
 
 	@Column
@@ -992,6 +991,10 @@ public class Aluno implements Serializable {
 		if (contratos != null) {
 			Collections.sort(contratos);
 		}
+		return contratos;
+	}
+	
+	public List<ContratoAluno> getContratosSux() {
 		return contratos;
 	}
 

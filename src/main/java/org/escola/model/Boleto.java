@@ -29,6 +29,8 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.aaf.financeiro.util.OfficeUtil;
+
 
 @SuppressWarnings("serial")
 @Entity
@@ -80,7 +82,13 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	private Boolean baixaGerada;
 	
 	@Column
+	private Boolean enviadoParaBanco;
+	
+	@Column
 	private Boolean cancelado;
+	
+	@Column
+	private Boolean cnabEnviado;
 	
 	@ManyToOne
 	private Aluno pagador;
@@ -222,6 +230,34 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 		}
 		
 		return 0;
+	}
+
+	public Boolean getEnviadoParaBanco() {
+		return enviadoParaBanco;
+	}
+
+	public void setEnviadoParaBanco(Boolean enviadoParaBanco) {
+		this.enviadoParaBanco = enviadoParaBanco;
+	}
+
+	public org.aaf.financeiro.model.Boleto getBoletoFinanceiro() {
+		org.aaf.financeiro.model.Boleto boletoFinanceiro = new org.aaf.financeiro.model.Boleto();
+		boletoFinanceiro.setEmissao(getEmissao());
+		boletoFinanceiro.setId(getId());
+		boletoFinanceiro.setValorNominal(getValorNominal());
+		boletoFinanceiro.setVencimento(getVencimento());
+		boletoFinanceiro.setNossoNumero(String.valueOf(getNossoNumero()));
+		boletoFinanceiro.setDataPagamento(OfficeUtil.retornaDataSomenteNumeros(getDataPagamento()));
+		boletoFinanceiro.setValorPago(getValorPago());
+		return boletoFinanceiro;
+	}
+
+	public Boolean getCnabEnviado() {
+		return cnabEnviado;
+	}
+
+	public void setCnabEnviado(Boolean cnabEnviado) {
+		this.cnabEnviado = cnabEnviado;
 	}
     
 }

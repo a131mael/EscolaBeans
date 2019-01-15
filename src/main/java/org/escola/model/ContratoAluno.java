@@ -430,11 +430,6 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 		return boletosFinanceiro;
 	}
 
-	public String removeCaracteresEspeciais(String texto) {
-		texto = texto.replaceAll("[^aA-zZ-Z0-9 ]", "");
-		return texto;
-	}
-
 	@Override
 	public int compareTo(ContratoAluno o) {
 		if(this.getId() > o.getId()){
@@ -444,6 +439,11 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 		}
 		
 		return 0;
+	}
+	
+	public String removeCaracteresEspeciais(String texto) {
+		texto = texto.replaceAll("[^aA-zZ-Z0-9 ]", "");
+		return texto;
 	}
 
 }
