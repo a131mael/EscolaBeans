@@ -29,10 +29,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -123,6 +125,15 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	
 	@Column
     private Boolean contratoTerminado;
+	
+	@Transient
+	private Boolean atrasado;
+	
+	@Column
+    private Boolean protestado;
+	
+	@Lob
+	private String comentario;
 
 	public Boolean getContratoTerminado() {
 		return contratoTerminado;
@@ -444,6 +455,30 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	public String removeCaracteresEspeciais(String texto) {
 		texto = texto.replaceAll("[^aA-zZ-Z0-9 ]", "");
 		return texto;
+	}
+
+	public Boolean getAtrasado() {
+		return atrasado;
+	}
+
+	public void setAtrasado(Boolean atrasado) {
+		this.atrasado = atrasado;
+	}
+
+	public Boolean getProtestado() {
+		return protestado;
+	}
+
+	public void setProtestado(Boolean protestado) {
+		this.protestado = protestado;
+	}
+
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
 	}
 
 }

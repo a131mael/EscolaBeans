@@ -91,6 +91,9 @@ public class Avaliacao implements Serializable {
 	private boolean recuperacao;
 	@Column
 	private boolean provaFinal;
+	
+	@Column
+	private Integer anoLetivo;
 
 	public Long getId() {
 		return id;
@@ -202,6 +205,14 @@ public class Avaliacao implements Serializable {
 
 	public void setProvaFinal(boolean provaFinal) {
 		this.provaFinal = provaFinal;
+	}
+
+	public Integer getAnoLetivo() {
+		return anoLetivo;
+	}
+
+	public void setAnoLetivo(Integer anoLetivo) {
+		this.anoLetivo = anoLetivo;
 	}
 
 }

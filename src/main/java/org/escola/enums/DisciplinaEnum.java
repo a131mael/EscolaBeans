@@ -18,8 +18,9 @@ public enum DisciplinaEnum {
 	
 	FORMACAO_CRISTA("Formação cristã"),
 	
-	ARTES("Artes");
+	ARTES("Artes"),
 	
+	ESPANHOL("Espanhol");
 	
 	
 	private String name;

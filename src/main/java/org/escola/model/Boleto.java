@@ -88,6 +88,9 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	private Boolean cancelado;
 	
 	@Column
+	private Boolean cnabCanceladoEnviado;
+	
+	@Column
 	private Boolean cnabEnviado;
 	
 	@ManyToOne
@@ -258,6 +261,14 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 
 	public void setCnabEnviado(Boolean cnabEnviado) {
 		this.cnabEnviado = cnabEnviado;
+	}
+
+	public Boolean getCnabCanceladoEnviado() {
+		return cnabCanceladoEnviado;
+	}
+
+	public void setCnabCanceladoEnviado(Boolean cnabCanceladoEnviado) {
+		this.cnabCanceladoEnviado = cnabCanceladoEnviado;
 	}
     
 }
