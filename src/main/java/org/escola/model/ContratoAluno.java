@@ -134,6 +134,13 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	
 	@Lob
 	private String comentario;
+	
+	@Column
+    private Boolean podeProtestarFinal;
+	
+	@Column
+    private Boolean enviadoProtestoDefinitivo;
+	
 
 	public Boolean getContratoTerminado() {
 		return contratoTerminado;
@@ -471,6 +478,22 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	public void setProtestado(Boolean protestado) {
 		this.protestado = protestado;
+	}
+
+	public Boolean getPodeProtestarFinal() {
+		return podeProtestarFinal;
+	}
+
+	public void setPodeProtestarFinal(Boolean podeProtestarFinal) {
+		this.podeProtestarFinal = podeProtestarFinal;
+	}
+
+	public Boolean getEnviadoProtestoDefinitivo() {
+		return enviadoProtestoDefinitivo;
+	}
+
+	public void setEnviadoProtestoDefinitivo(Boolean enviadoProtestoDefinitivo) {
+		this.enviadoProtestoDefinitivo = enviadoProtestoDefinitivo;
 	}
 
 	public String getComentario() {
