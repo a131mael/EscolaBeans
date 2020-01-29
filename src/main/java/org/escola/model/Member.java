@@ -23,7 +23,7 @@ public class Member implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 7405946341521019514L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(generator = "GENERATE_member", strategy = GenerationType.SEQUENCE)
@@ -31,7 +31,7 @@ public class Member implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Size(min = 1, max = 25)
+	@Size(min = 1, max = 60)
 	@Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
 	private String name;
 

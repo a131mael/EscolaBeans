@@ -6,15 +6,29 @@
 	<persistence-unit name="EscolaDS" transaction-type="JTA">
 		<description>EngineWeb Persistence Unit</description>
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<non-jta-data-source>java:/EscolaDS</non-jta-data-source>
+		<jta-data-source>java:/EscolaDS</jta-data-source>
+		<class>org.escola.model.ContratoAluno</class>
+		<class>org.escola.model.Aluno</class>
+		<class>org.escola.model.AlunoAvaliacao</class>
+		<class>org.escola.model.AlunoTurma</class>
+		<class>org.escola.model.Turma</class>
+		<class>org.escola.model.Recado</class>
+		<class>org.escola.model.ProfessorTurma</class>
+		<class>org.escola.model.Professor</class>
+		<class>org.escola.model.Member</class>
+		<class>org.escola.model.HistoricoAluno</class>
+		<class>org.escola.model.Devedor</class>
+		<class>org.escola.model.Configuracao</class>
+		<class>org.escola.model.Boleto</class>
+		
 		<properties>
 			<!-- <property name="hibernate.hbm2ddl.auto" value="create-drop"/> -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.transaction.flush_before_completion"
-				value="true" />
+			<property name="hibernate.transaction.flush_before_completion"	value="true" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			 <!-- <property name="jboss.as.jpa.providerModule" value="org.hibernate:5.4.4"/> -->
 		</properties>
 	</persistence-unit>
 </persistence>

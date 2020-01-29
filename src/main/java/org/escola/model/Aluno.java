@@ -40,6 +40,7 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.aaf.dto.AlunoDTO;
+import org.escola.enums.BairroEnum;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
 import org.escola.enums.Sexo;
@@ -56,7 +57,76 @@ public class Aluno implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ContratoAluno> contratos;
+	
+	@Column
+	private String cpf;
+	
+	@Column
+	private String rg;
+	
+	@Column
+	private String contatoEmail1;
 
+	@Column
+	private String contatoEmail2;
+
+	@Column
+	private String contatoTelefone1;
+
+	@Column
+	private String contatoNome1;
+
+	@Column
+	private String contatoTelefone2;
+
+	@Column
+	private String contatoNome2;
+
+	@Column
+	private String contatoTelefone3;
+
+	@Column
+	private String contatoNome3;
+
+	@Column
+	private String contatoTelefone4;
+
+	@Column
+	private String contatoNome4;
+
+	@Column
+	private String contatoTelefone5;
+
+	@Column
+	private String contatoNome5;
+	
+	@Column
+	private String autorizadoASairCom1;
+	
+	@Column
+	private String autorizadoASairCom2;
+	
+	@Column
+	private String autorizadoASairCom3;
+	
+	@Column
+	private String autorizadoASairCom4;
+	
+	@Column
+	private String autorizadoASairCom5;
+	
+	@Column
+	private String autorizadoASairCom6;
+	
+	@Column
+	private String autorizadoASairCom7;
+	
+	@Column
+	private BairroEnum bairroAluno;
+
+	@Column
+	private String enderecoAluno;
+	
 	@ManyToOne
 	private Aluno irmao1;
 
@@ -1275,10 +1345,197 @@ public class Aluno implements Serializable {
 	}
 
 	public Integer getQuantidadeContatos() {
+		if(quantidadeContatos == null){
+			return 0; 
+		}
 		return quantidadeContatos;
 	}
 
 	public void setQuantidadeContatos(Integer quantidadeContatos) {
 		this.quantidadeContatos = quantidadeContatos;
+	}
+
+	public String getContatoEmail1() {
+		return contatoEmail1;
+	}
+
+	public void setContatoEmail1(String contatoEmail1) {
+		this.contatoEmail1 = contatoEmail1;
+	}
+
+	public String getContatoEmail2() {
+		return contatoEmail2;
+	}
+
+	public void setContatoEmail2(String contatoEmail2) {
+		this.contatoEmail2 = contatoEmail2;
+	}
+
+	public String getContatoTelefone1() {
+		return contatoTelefone1;
+	}
+
+	public void setContatoTelefone1(String contatoTelefone1) {
+		this.contatoTelefone1 = contatoTelefone1;
+	}
+
+	public String getContatoNome1() {
+		return contatoNome1;
+	}
+
+	public void setContatoNome1(String contatoNome1) {
+		this.contatoNome1 = contatoNome1;
+	}
+
+	public String getContatoTelefone2() {
+		return contatoTelefone2;
+	}
+
+	public void setContatoTelefone2(String contatoTelefone2) {
+		this.contatoTelefone2 = contatoTelefone2;
+	}
+
+	public String getContatoNome2() {
+		return contatoNome2;
+	}
+
+	public void setContatoNome2(String contatoNome2) {
+		this.contatoNome2 = contatoNome2;
+	}
+
+	public String getContatoTelefone3() {
+		return contatoTelefone3;
+	}
+
+	public void setContatoTelefone3(String contatoTelefone3) {
+		this.contatoTelefone3 = contatoTelefone3;
+	}
+
+	public String getContatoNome3() {
+		return contatoNome3;
+	}
+
+	public void setContatoNome3(String contatoNome3) {
+		this.contatoNome3 = contatoNome3;
+	}
+
+	public String getContatoTelefone4() {
+		return contatoTelefone4;
+	}
+
+	public void setContatoTelefone4(String contatoTelefone4) {
+		this.contatoTelefone4 = contatoTelefone4;
+	}
+
+	public String getContatoNome4() {
+		return contatoNome4;
+	}
+
+	public void setContatoNome4(String contatoNome4) {
+		this.contatoNome4 = contatoNome4;
+	}
+
+	public String getContatoTelefone5() {
+		return contatoTelefone5;
+	}
+
+	public void setContatoTelefone5(String contatoTelefone5) {
+		this.contatoTelefone5 = contatoTelefone5;
+	}
+
+	public String getContatoNome5() {
+		return contatoNome5;
+	}
+
+	public void setContatoNome5(String contatoNome5) {
+		this.contatoNome5 = contatoNome5;
+	}
+
+	public String getAutorizadoASairCom1() {
+		return autorizadoASairCom1;
+	}
+
+	public void setAutorizadoASairCom1(String autorizadoASairCom1) {
+		this.autorizadoASairCom1 = autorizadoASairCom1;
+	}
+
+	public String getAutorizadoASairCom2() {
+		return autorizadoASairCom2;
+	}
+
+	public void setAutorizadoASairCom2(String autorizadoASairCom2) {
+		this.autorizadoASairCom2 = autorizadoASairCom2;
+	}
+
+	public String getAutorizadoASairCom3() {
+		return autorizadoASairCom3;
+	}
+
+	public void setAutorizadoASairCom3(String autorizadoASairCom3) {
+		this.autorizadoASairCom3 = autorizadoASairCom3;
+	}
+
+	public String getAutorizadoASairCom4() {
+		return autorizadoASairCom4;
+	}
+
+	public void setAutorizadoASairCom4(String autorizadoASairCom4) {
+		this.autorizadoASairCom4 = autorizadoASairCom4;
+	}
+
+	public String getAutorizadoASairCom5() {
+		return autorizadoASairCom5;
+	}
+
+	public void setAutorizadoASairCom5(String autorizadoASairCom5) {
+		this.autorizadoASairCom5 = autorizadoASairCom5;
+	}
+
+	public String getAutorizadoASairCom6() {
+		return autorizadoASairCom6;
+	}
+
+	public void setAutorizadoASairCom6(String autorizadoASairCom6) {
+		this.autorizadoASairCom6 = autorizadoASairCom6;
+	}
+
+	public String getAutorizadoASairCom7() {
+		return autorizadoASairCom7;
+	}
+
+	public void setAutorizadoASairCom7(String autorizadoASairCom7) {
+		this.autorizadoASairCom7 = autorizadoASairCom7;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getRg() {
+		return rg;
+	}
+
+	public void setRg(String rg) {
+		this.rg = rg;
+	}
+
+	public String getEnderecoAluno() {
+		return enderecoAluno;
+	}
+
+	public void setEnderecoAluno(String enderecoAluno) {
+		this.enderecoAluno = enderecoAluno;
+	}
+
+	public BairroEnum getBairroAluno() {
+		return bairroAluno;
+	}
+
+	public void setBairroAluno(BairroEnum bairroAluno) {
+		this.bairroAluno = bairroAluno;
 	}
 }

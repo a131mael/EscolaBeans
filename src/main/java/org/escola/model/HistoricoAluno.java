@@ -32,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
 
+import com.sun.istack.Nullable;
+
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
@@ -82,6 +84,7 @@ public class HistoricoAluno implements Serializable {
     
     private float notaArtes;
     
+    private Float notaEspanhol = 0F;
     
     private Serie serie;
 
@@ -237,6 +240,14 @@ public class HistoricoAluno implements Serializable {
 
 	public void setFrequencia(String frequencia) {
 		this.frequencia = frequencia;
+	}
+
+	public float getNotaEspanhol() {
+		return notaEspanhol;
+	}
+
+	public void setNotaEspanhol(float notaEspanhol) {
+		this.notaEspanhol = notaEspanhol;
 	}
     
 }
