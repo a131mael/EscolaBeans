@@ -242,11 +242,11 @@ public class HistoricoAluno implements Serializable {
 		this.frequencia = frequencia;
 	}
 
-	public float getNotaEspanhol() {
+	public Float getNotaEspanhol() {
 		return notaEspanhol;
 	}
 
-	public void setNotaEspanhol(float notaEspanhol) {
+	public void setNotaEspanhol(Float notaEspanhol) {
 		this.notaEspanhol = notaEspanhol;
 	}
     

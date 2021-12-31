@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.aaf.financeiro.util.OfficeUtil;
 
-
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
@@ -70,6 +69,9 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	private Boolean manterAposRemovido;
 	
 	@Column
+	private Boolean nfsEnviada;
+	
+	@Column
 	private Boolean baixaManual;
 	
 	@Column
@@ -87,6 +89,9 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	
 	@Column
 	private Boolean cancelado;
+	
+	@Column
+	private Boolean dividaPerdoada;
 	
 	@Column
 	private Boolean cnabCanceladoEnviado;
@@ -235,7 +240,6 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 		}else if(this.getId() < o.getId()){
 			return 1;
 		}
-		
 		return 0;
 	}
 
@@ -282,5 +286,20 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	public void setProtestado(Boolean protestado) {
 		this.protestado = protestado;
 	}
-    
+
+	public Boolean getNfsEnviada() {
+		return nfsEnviada;
+	}
+
+	public void setNfsEnviada(Boolean nfsEnviada) {
+		this.nfsEnviada = nfsEnviada;
+	}
+
+	public Boolean getDividaPerdoada() {
+		return dividaPerdoada;
+	}
+
+	public void setDividaPerdoada(Boolean dividaPerdoada) {
+		this.dividaPerdoada = dividaPerdoada;
+	}
 }

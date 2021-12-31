@@ -49,7 +49,7 @@ import org.escola.enums.Sexo;
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
-public class Aluno implements Serializable {
+public class Aluno implements Serializable, Comparable<Aluno> {
 
 	@Id
 	@GeneratedValue
@@ -57,13 +57,13 @@ public class Aluno implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ContratoAluno> contratos;
-	
+
 	@Column
 	private String cpf;
-	
+
 	@Column
 	private String rg;
-	
+
 	@Column
 	private String contatoEmail1;
 
@@ -99,34 +99,34 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String contatoNome5;
-	
+
 	@Column
 	private String autorizadoASairCom1;
-	
+
 	@Column
 	private String autorizadoASairCom2;
-	
+
 	@Column
 	private String autorizadoASairCom3;
-	
+
 	@Column
 	private String autorizadoASairCom4;
-	
+
 	@Column
 	private String autorizadoASairCom5;
-	
+
 	@Column
 	private String autorizadoASairCom6;
-	
+
 	@Column
 	private String autorizadoASairCom7;
-	
+
 	@Column
 	private BairroEnum bairroAluno;
 
 	@Column
 	private String enderecoAluno;
-	
+
 	@ManyToOne
 	private Aluno irmao1;
 
@@ -168,19 +168,19 @@ public class Aluno implements Serializable {
 
 	@Column
 	private String nomeDoencas;
-	
+
 	@Column
 	private Date dataPrometeuPagar;
-	
+
 	@Column
 	private String observacaoAtrasado;
-	
+
 	@Column
 	private Boolean contactado;
-	
+
 	@Column
 	private Date dataContato;
-	
+
 	@Column
 	private Integer quantidadeContatos = 0;
 
@@ -346,6 +346,8 @@ public class Aluno implements Serializable {
 	@Column
 	private String observacaoProfessores;
 
+	private byte[] foto;
+
 	// DADOS PARA O FINANCEIRO
 
 	@Column
@@ -365,13 +367,13 @@ public class Aluno implements Serializable {
 
 	@Transient
 	private int quantidadeMesAtrasado;
-	
+
 	@Transient
 	private String mesesAtrasados;
-	
+
 	@Transient
 	private String contatos;
-	
+
 	// TODO remover os atributos daqui para baixo
 
 	@Column
@@ -435,6 +437,12 @@ public class Aluno implements Serializable {
 	@Column
 	@Deprecated
 	private double valorMensal;
+
+	@Transient
+	private long percentualAulasAssistidas;
+
+	@Transient
+	private Date dataUltimaAulaAssistida;
 
 	// TODO remover atributos ATEH aqui
 
@@ -805,6 +813,27 @@ public class Aluno implements Serializable {
 		alunoDTO.setNomeAluno(nomeAluno);
 		alunoDTO.setPeriodo(periodo.getName());
 		alunoDTO.setSerie(serie.getName());
+		alunoDTO.setAutorizadoASairCom1(autorizadoASairCom1);
+		alunoDTO.setAutorizadoASairCom2(autorizadoASairCom2);
+		alunoDTO.setAutorizadoASairCom3(autorizadoASairCom3);
+		alunoDTO.setAutorizadoASairCom4(autorizadoASairCom4);
+		alunoDTO.setAutorizadoASairCom5(autorizadoASairCom5);
+		alunoDTO.setAutorizadoASairCom6(autorizadoASairCom6);
+		alunoDTO.setAutorizadoASairCom7(autorizadoASairCom7);
+		alunoDTO.setContatoEmail1(contatoEmail1);
+		alunoDTO.setContatoEmail2(contatoEmail2);
+		alunoDTO.setContatoNome1(contatoNome1);
+		alunoDTO.setContatoNome2(contatoNome2);
+		alunoDTO.setContatoNome3(contatoNome3);
+		alunoDTO.setContatoNome4(contatoNome4);
+		alunoDTO.setContatoNome5(contatoNome5);
+		alunoDTO.setContatoTelefone1(contatoTelefone1);
+		alunoDTO.setContatoTelefone2(contatoTelefone2);
+		alunoDTO.setContatoTelefone3(contatoTelefone3);
+		alunoDTO.setContatoTelefone4(contatoTelefone4);
+		alunoDTO.setContatoTelefone5(contatoTelefone5);
+		alunoDTO.setFoto(foto);
+
 		return alunoDTO;
 	}
 
@@ -1087,7 +1116,7 @@ public class Aluno implements Serializable {
 		}
 		return contratos;
 	}
-	
+
 	public List<ContratoAluno> getContratosSux() {
 		return contratos;
 	}
@@ -1117,20 +1146,69 @@ public class Aluno implements Serializable {
 	public ContratoAluno getContratoVigente() {
 		ContratoAluno contratoAtivo = null;
 		if (contratos != null) {
-			try{
+			try {
 				for (ContratoAluno contrato : contratos) {
 					if (contrato != null) {
 						if (contrato.getCancelado() == null || !contrato.getCancelado()) {
-							contratoAtivo = contrato;
+							if(contratoAtivo != null 
+									&& contrato.getDataCriacaoContrato().after(contratoAtivo.getDataCriacaoContrato())
+									&& contrato.getAno() == anoLetivo){
+								contratoAtivo = contrato;
+							}else if(contratoAtivo == null && contrato.getAno() == anoLetivo ){
+								contratoAtivo = contrato;
+							}
 						}
 					}
 				}
-			}catch (Exception e) {
-				
+			} catch (Exception e) {
+
+			}
+		}
+		
+		if(contratoAtivo == null){
+			if(contratos != null){
+				return contratos.get(0);
 			}
 		}
 
 		return contratoAtivo;
+	}
+	
+	public ContratoAluno getContratoVigente(int anoLetivo) {
+		ContratoAluno contratoAtivo = null;
+		if (contratos != null) {
+			for (ContratoAluno contrato : contratos) {
+				if ((contrato.getCancelado() == null || !contrato.getCancelado() )) {
+					
+					if(contratoAtivo != null 
+							&& contrato.getDataCriacaoContrato().after(contratoAtivo.getDataCriacaoContrato())
+							&& contrato.getAno() == anoLetivo){
+						contratoAtivo = contrato;
+					}else if(contratoAtivo == null && contrato.getAno() == anoLetivo){
+						contratoAtivo = contrato;
+					}
+				}
+			}
+		}
+		
+		if(contratoAtivo == null){
+			if(contratos != null){
+				return contratos.get(0);
+			}
+		}
+
+		return contratoAtivo;
+	}
+
+	public boolean isContratoAtivo() {
+		for (Boleto boleto : boletos) {
+			if (boleto.getCancelado() != null && boleto.getValorPago() != null) {
+				if (!boleto.getCancelado() && boleto.getValorPago() > boleto.getValorNominal() - 40) {
+					return true;
+				}
+			}
+		}
+		return true;
 	}
 
 	public List<ContratoAluno> getContratosVigentes() {
@@ -1345,8 +1423,8 @@ public class Aluno implements Serializable {
 	}
 
 	public Integer getQuantidadeContatos() {
-		if(quantidadeContatos == null){
-			return 0; 
+		if (quantidadeContatos == null) {
+			return 0;
 		}
 		return quantidadeContatos;
 	}
@@ -1537,5 +1615,40 @@ public class Aluno implements Serializable {
 
 	public void setBairroAluno(BairroEnum bairroAluno) {
 		this.bairroAluno = bairroAluno;
+	}
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public long getPercentualAulasAssistidas() {
+		return percentualAulasAssistidas;
+	}
+
+	public void setPercentualAulasAssistidas(long percentualAulasAssistidas) {
+		this.percentualAulasAssistidas = percentualAulasAssistidas;
+	}
+
+	public Date getDataUltimaAulaAssistida() {
+		return dataUltimaAulaAssistida;
+	}
+
+	public void setDataUltimaAulaAssistida(Date dataUltimaAulaAssistida) {
+		this.dataUltimaAulaAssistida = dataUltimaAulaAssistida;
+	}
+
+	@Override
+	public int compareTo(Aluno o) {
+		if (this.percentualAulasAssistidas < o.getPercentualAulasAssistidas()) {
+			return -1;
+		} else if (this.percentualAulasAssistidas > o.getPercentualAulasAssistidas()) {
+			return 1;
+		} else {
+			return 0;
+		}
 	}
 }

@@ -18,11 +18,14 @@ package org.escola.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
@@ -49,7 +52,7 @@ public class Recado implements Serializable {
     
     @Column                
     private Date dataInicio;
-    
+    	
     @Column                
     private Date dataParaExibicao;
     
@@ -113,10 +116,19 @@ public class Recado implements Serializable {
     @Transient
     private boolean precisaDeResposta;
     
+    private Boolean aprovado;
+    
+    private Long idQuemPostou;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+	private List<RecadoCurtido> curtiram;
+    
+    @OneToMany(fetch = FetchType.LAZY)
+	private List<RecadoDescurtido> descurtiram;
+    
 	public String getNome() {
 		return nome;
 	}
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -277,7 +289,6 @@ public class Recado implements Serializable {
 		recadoDTO.setQuestionario(questionario);
 		recadoDTO.setTipoDestinatario(tipoDestinatario.ordinal());
 		
-		
 		return recadoDTO;
 	}
 
@@ -377,6 +388,40 @@ public class Recado implements Serializable {
 
 	public void setDataParaExibicao(Date dataParaExibicao) {
 		this.dataParaExibicao = dataParaExibicao;
+	}
+
+
+	public boolean isAprovado() {
+		return aprovado;
+	}
+
+
+	public void setAprovado(boolean aprovado) {
+		this.aprovado = aprovado;
+	}
+
+	public List<RecadoCurtido> getCurtiram() {
+		return curtiram;
+	}
+
+	public void setCurtiram(List<RecadoCurtido> curtiram) {
+		this.curtiram = curtiram;
+	}
+
+	public List<RecadoDescurtido> getDescurtiram() {
+		return descurtiram;
+	}
+
+	public void setDescurtiram(List<RecadoDescurtido> descurtiram) {
+		this.descurtiram = descurtiram;
+	}
+
+	public Long getIdQuemPostou() {
+		return idQuemPostou;
+	}
+
+	public void setIdQuemPostou(Long idQuemPostou) {
+		this.idQuemPostou = idQuemPostou;
 	}
 
 }

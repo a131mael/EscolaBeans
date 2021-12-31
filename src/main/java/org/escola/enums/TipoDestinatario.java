@@ -24,6 +24,8 @@ public enum TipoDestinatario {
 	
 	NONO("9 ano"),
 	
+	INDEFINIDO("Indefinido"),
+	
 	MEMBRO("Membro");
 	
 	private String tipo;

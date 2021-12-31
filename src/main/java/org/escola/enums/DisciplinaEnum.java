@@ -20,7 +20,25 @@ public enum DisciplinaEnum {
 	
 	ARTES("Artes"),
 	
-	ESPANHOL("Espanhol");
+	ESPANHOL("Filosofia"),
+	
+	CULINARIA("Culinária"),
+	
+	LIVRO_EXPERIENCIAS("Livro de Experiência"),
+	
+	BRINCADEIRAS_E_ARTE("Brincadeiras das Artes"),//12
+	
+	LETRAR("Letrar"),//13
+	
+	NUMERAR("Numerar"),//14
+	
+	INVESTIGAR("Investigar"),//15
+	
+	DESENHAR("Desenhar"), //16
+	
+	HISTORIA_EM_CENA("História em cena"); //17
+	
+	
 	
 	
 	private String name;
