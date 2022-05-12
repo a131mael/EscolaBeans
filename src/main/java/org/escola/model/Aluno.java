@@ -18,6 +18,7 @@ package org.escola.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -44,6 +45,9 @@ import org.escola.enums.BairroEnum;
 import org.escola.enums.PerioddoEnum;
 import org.escola.enums.Serie;
 import org.escola.enums.Sexo;
+import org.escola.enums.StatusBoletoEnum;
+import org.escola.model.Boleto;
+import org.escola.util.Verificador;
 
 @SuppressWarnings("serial")
 @Entity
@@ -147,6 +151,9 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	@Column
 	private Boolean rematricular;
+	
+	@Column
+	private Boolean gerarNFSe;
 
 	@Column
 	private Sexo sexo;
@@ -1167,7 +1174,12 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		
 		if(contratoAtivo == null){
 			if(contratos != null){
-				return contratos.get(0);
+				try{
+					return contratos.get(0);
+					
+				}catch(Exception e){
+					return null;
+				}
 			}
 		}
 
@@ -1192,7 +1204,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		}
 		
 		if(contratoAtivo == null){
-			if(contratos != null){
+			if(contratos != null && contratos.size() > 0 ){
 				return contratos.get(0);
 			}
 		}
@@ -1650,5 +1662,33 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		} else {
 			return 0;
 		}
+	}
+
+	public Boolean getGerarNFSe() {
+		return gerarNFSe;
+	}
+
+	public void setGerarNFSe(Boolean gerarNFSe) {
+		this.gerarNFSe = gerarNFSe;
+	}
+	
+	public double getTotalABerto(){
+		Calendar c = Calendar.getInstance();
+		c.set(2021, 1, 1);
+		if(id == 95949){
+			System.out.println("a");
+		}
+		Double total = 0D;
+		List<Boleto> boletos = getBoletos2();
+		for(Boleto b : boletos){
+			if(b.getVencimento().after(c.getTime()) ){
+				StatusBoletoEnum status = Verificador.getStatusEnum(b); 
+				if(status.equals(StatusBoletoEnum.ATRASADO)){
+					total += Verificador.getValorFinal(b);
+				}
+			}
+		}
+		
+		return total;
 	}
 }

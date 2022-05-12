@@ -17,43 +17,40 @@
 package org.escola.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.escola.enums.BimestreEnum;
-
-@SuppressWarnings("serial")
 @Entity
 @XmlRootElement
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = "id"))
-public class Configuracao implements Serializable {
+public class Faturamento implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
     @GeneratedValue
     private Long id;
 
     @Column
+    private long quantidadeCriancas;
+    
+    @Column
+    private Date data;
+    
+    @Column
     private int anoLetivo;
     
     @Column
-    private BimestreEnum bimestre;
-    
-    @Column
-    private Short anoRematricula;
-    
-    @Column
-    private long sequencialArquivoCNAB;
-    
-    @Transient
-    private double valorNotas;
-    
+    private double valor;
     
 	public Long getId() {
 		return id;
@@ -63,47 +60,65 @@ public class Configuracao implements Serializable {
 		this.id = id;
 	}
 
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Faturamento other = (Faturamento) obj;
+		if (valor == 0) {
+			if (other.valor != 0)
+				return false;
+		} if (data == null) {
+			if (other.data != null)
+				return false;
+		} else if (valor !=(other.valor))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		
+		return true;
+
+	}
+
+	public long getQuantidadeCriancas() {
+		return quantidadeCriancas;
+	}
+
+	public void setQuantidadeCriancas(long quantidadeCriacas) {
+		this.quantidadeCriancas = quantidadeCriacas;
+	}
 
 	public int getAnoLetivo() {
 		return anoLetivo;
 	}
 
-
 	public void setAnoLetivo(int anoLetivo) {
 		this.anoLetivo = anoLetivo;
 	}
 
-	public BimestreEnum getBimestre() {
-		return bimestre;
-	}
-
-	public void setBimestre(BimestreEnum bimestre) {
-		this.bimestre = bimestre;
-	}
-
-	public long getSequencialArquivoCNAB() {
-		return sequencialArquivoCNAB;
-	}
-
-	public void setSequencialArquivoCNAB(long sequencialArquivoCNAB) {
-		this.sequencialArquivoCNAB = sequencialArquivoCNAB;
-	}
-
-	public Short getAnoRematricula() {
-		return anoRematricula;
-	}
-
-	public void setAnoRematricula(Short anoRematricula) {
-		this.anoRematricula = anoRematricula;
-	}
-
-	public double getValorNotas() {
-		return valorNotas;
-	}
-
-	public void setValorNotas(double valorNotas) {
-		this.valorNotas = valorNotas;
-	}
-
-
+    
 }

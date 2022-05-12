@@ -86,10 +86,13 @@
 			<artifactId>Financeiro</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency> 
-		
 
+		<dependency>
+			<groupId>br.com.aaf.base</groupId>
+			<artifactId>base</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
 	</dependencies>
 	
-  
 </project>
