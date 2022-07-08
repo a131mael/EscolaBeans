@@ -63,7 +63,7 @@ public class Avaliacao implements Serializable {
 	private Professor professor;
 	
 	@Column
-	private int peso = 1;
+	private Integer peso = 1;
 	
 	@Column
 	private DisciplinaEnum disciplina;
@@ -82,15 +82,15 @@ public class Avaliacao implements Serializable {
 		return nome;
 	}
 	@Column
-	private boolean trabalho;
+	private Boolean trabalho;
 	@Column
-	private boolean prova;
+	private Boolean prova;
 	@Column
-	private boolean bimestral;
+	private Boolean bimestral;
 	@Column
-	private boolean recuperacao;
+	private Boolean recuperacao;
 	@Column
-	private boolean provaFinal;
+	private Boolean provaFinal;
 	
 	@Column
 	private Integer anoLetivo;

@@ -147,7 +147,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private Boolean verificadoOk;
 
 	@Column
-	private int anoLetivo;
+	private Integer anoLetivo;
 
 	@Column
 	private Boolean rematricular;
@@ -195,6 +195,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@NotNull
 	@Size(min = 1, max = 250)
 	@Pattern(regexp = "[^0-9]*", message = "Must not contain numbers")
+	@Column(name="nomealuno")
 	private String nomeAluno;
 
 	@OneToMany(fetch = FetchType.LAZY)
@@ -243,7 +244,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String nacionalidade;
 
 	@Column
-	private boolean administrarParacetamol;
+	private Boolean administrarParacetamol;
 	@Column
 	private Integer faltas1Bimestre;
 	@Column
@@ -345,7 +346,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String telefone2contatoSaidaEstabelecimento3;
 
 	@Column
-	private boolean ativo;
+	private Boolean ativo;
 
 	@Column
 	private String observacaoSecretaria;
@@ -431,11 +432,11 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	private String cpfResponsavel;
 
 	@Column
-	private int diaVencimento = 10;
+	private Integer diaVencimento = 10;
 
 	@Column
 	@Deprecated
-	private boolean vencimentoUltimoDia;
+	private Boolean vencimentoUltimoDia;
 
 	@Column
 	@Deprecated
@@ -443,7 +444,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	@Column
 	@Deprecated
-	private double valorMensal;
+	private Double valorMensal;
 
 	@Transient
 	private long percentualAulasAssistidas;

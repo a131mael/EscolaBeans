@@ -23,6 +23,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -45,16 +46,18 @@ public class AlunoAvaliacao implements Serializable {
 	private Long id;
 
 	@ManyToOne
+	@JoinColumn(name="aluno_id")
 	private Aluno aluno;
 	
 	@ManyToOne
+	@JoinColumn(name="avaliacao_id")
 	private Avaliacao avaliacao;
 
 	@Column
 	private float nota;
 	
-	@Column
-    private int anoLetivo;
+	@Column(name = "anoLetivo")
+    private Integer anoLetivo;
 
 	public Aluno getAluno() {
 		return aluno;

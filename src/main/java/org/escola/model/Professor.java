@@ -33,6 +33,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.escola.enums.DisciplinaEnum;
 import org.escola.enums.EspecialidadeEnum;
 import org.escola.enums.TipoMembro;
 
@@ -306,5 +307,4 @@ public class Professor implements Serializable {
 		this.codigo = codigo;
 	}
 
-		
 }

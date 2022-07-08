@@ -27,6 +27,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.escola.enums.DisciplinaEnum;
+
 @SuppressWarnings("serial")
 @Entity
 @XmlRootElement
@@ -42,6 +44,8 @@ public class ProfessorTurma implements Serializable {
     private Professor professor;
     
     private Boolean principal;
+    
+    private DisciplinaEnum Disciplina;
     
     @NotNull
     @ManyToOne
@@ -77,6 +81,14 @@ public class ProfessorTurma implements Serializable {
 
 	public void setTurma(Turma turma) {
 		this.turma = turma;
+	}
+
+	public DisciplinaEnum getDisciplina() {
+		return Disciplina;
+	}
+
+	public void setDisciplina(DisciplinaEnum disciplina) {
+		Disciplina = disciplina;
 	}
 
     
