@@ -470,11 +470,11 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		this.serie = serie;
 	}
 
-	public boolean isAtivo() {
+	public Boolean isAtivo() {
 		return ativo;
 	}
 
-	public void setAtivo(boolean ativo) {
+	public void setAtivo(Boolean ativo) {
 		this.ativo = ativo;
 	}
 
@@ -725,12 +725,16 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	public void setNomePaiAluno(String nomePaiAluno) {
 		this.nomePaiAluno = nomePaiAluno;
 	}
-
-	public boolean isAdministrarParacetamol() {
+	
+	public Boolean getAdministrarParacetamol() {
 		return administrarParacetamol;
 	}
 
-	public void setAdministrarParacetamol(boolean administrarParacetamol) {
+	public Boolean isAdministrarParacetamol() {
+		return administrarParacetamol;
+	}
+
+	public void setAdministrarParacetamol(Boolean administrarParacetamol) {
 		this.administrarParacetamol = administrarParacetamol;
 	}
 
@@ -1213,7 +1217,7 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		return contratoAtivo;
 	}
 
-	public boolean isContratoAtivo() {
+	public Boolean isContratoAtivo() {
 		for (Boleto boleto : boletos) {
 			if (boleto.getCancelado() != null && boleto.getValorPago() != null) {
 				if (!boleto.getCancelado() && boleto.getValorPago() > boleto.getValorNominal() - 40) {
@@ -1347,11 +1351,11 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 		this.diaVencimento = diaVencimento;
 	}
 
-	public boolean isVencimentoUltimoDia() {
+	public Boolean isVencimentoUltimoDia() {
 		return vencimentoUltimoDia;
 	}
 
-	public void setVencimentoUltimoDia(boolean vencimentoUltimoDia) {
+	public void setVencimentoUltimoDia(Boolean vencimentoUltimoDia) {
 		this.vencimentoUltimoDia = vencimentoUltimoDia;
 	}
 

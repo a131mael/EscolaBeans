@@ -144,6 +144,9 @@ public class Avaliacao implements Serializable {
 	}
 
 	public boolean isTrabalho() {
+		if(trabalho == null) {
+			return false;
+		}
 		return trabalho;
 	}
 
@@ -152,6 +155,9 @@ public class Avaliacao implements Serializable {
 	}
 
 	public boolean isProva() {
+		if(prova == null) {
+			return false;
+		}
 		return prova;
 	}
 
@@ -160,6 +166,9 @@ public class Avaliacao implements Serializable {
 	}
 
 	public boolean isBimestral() {
+		if(bimestral == null) {
+			return false;
+		}
 		return bimestral;
 	}
 
@@ -168,6 +177,9 @@ public class Avaliacao implements Serializable {
 	}
 
 	public boolean isRecuperacao() {
+		if(recuperacao == null) {
+			return false;
+		}
 		return recuperacao;
 	}
 
@@ -200,6 +212,9 @@ public class Avaliacao implements Serializable {
 	}
 
 	public boolean isProvaFinal() {
+		if(provaFinal == null) {
+			return false;
+		}
 		return provaFinal;
 	}
 

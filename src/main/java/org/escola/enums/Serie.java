@@ -38,5 +38,12 @@ public enum Serie {
 	public String getName() {
 		return name;
 	}
+	
+	public boolean isGeraHistorico() {
+		if(ordinal() >3) {
+			return true;
+		}
+		return false;
+	}
 
 }
