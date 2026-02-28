@@ -26,7 +26,9 @@ public enum Serie {
 	
 	OITAVO_ANO("8º ano"),
 	
-	NONO_ANO("9º ano");
+	NONO_ANO("9º ano"),
+	
+	PRIMEIRO_MEDIO("1º Médio");
 	
 	private String name;
 	

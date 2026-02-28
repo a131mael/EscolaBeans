@@ -39,6 +39,8 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.aaf.financeiro.util.OfficeUtil;
+import org.escola.enums.TipoBoleto;
+import org.hibernate.annotations.Type;
 
 @SuppressWarnings("serial")
 @Entity
@@ -60,6 +62,9 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	@Column
 	private short ano;
 
+	@Column
+    private Boolean confirmadoEnvioPorWebService;
+	
 	@Column
 	private String nomeResponsavel;
 
@@ -92,6 +97,9 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	@Column
 	private Double anuidade;
+	
+	@Column
+	private Boolean acordo;
 
 	@Column
 	private Integer numeroParcelas;
@@ -123,6 +131,11 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	@Column 
     private String endereco;
 	
+	@Column 
+	private String enderecoNumero;
+
+	private byte[] comentarioWebService;
+	
 	@Column
     private Boolean contratoTerminado;
 	
@@ -143,7 +156,14 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	
 	@Column
     private Boolean enviadoPorEmailProtesto;
+	
+	@Column
+	private TipoBoleto tipoBoleto;
 
+	@Lob
+	@Type(type = "org.hibernate.type.TextType")  
+	private String contratoScaneado;
+	
 	public Boolean getContratoTerminado() {
 		return contratoTerminado;
 	}
@@ -512,6 +532,54 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	public void setEnviadoPorEmailProtesto(Boolean enviadoPorEmailProtesto) {
 		this.enviadoPorEmailProtesto = enviadoPorEmailProtesto;
+	}
+
+	public Boolean getAcordo() {
+		return acordo;
+	}
+
+	public void setAcordo(Boolean acordo) {
+		this.acordo = acordo;
+	}
+
+	public TipoBoleto getTipoBoleto() {
+		return tipoBoleto;
+	}
+
+	public void setTipoBoleto(TipoBoleto tipoBoleto) {
+		this.tipoBoleto = tipoBoleto;
+	}
+
+	public String getEnderecoNumero() {
+		return enderecoNumero;
+	}
+
+	public void setEnderecoNumero(String enderecoNumero) {
+		this.enderecoNumero = enderecoNumero;
+	}
+
+	public byte[] getComentarioWebService() {
+		return comentarioWebService;
+	}
+
+	public void setComentarioWebService(byte[] comentarioWebService) {
+		this.comentarioWebService = comentarioWebService;
+	}
+
+	public String getContratoScaneado() {
+		return contratoScaneado;
+	}
+
+	public void setContratoScaneado(String contratoScaneado) {
+		this.contratoScaneado = contratoScaneado;
+	}
+
+	public Boolean getConfirmadoEnvioPorWebService() {
+		return confirmadoEnvioPorWebService;
+	}
+
+	public void setConfirmadoEnvioPorWebService(Boolean confirmadoEnvioPorWebService) {
+		this.confirmadoEnvioPorWebService = confirmadoEnvioPorWebService;
 	}
 
 }
