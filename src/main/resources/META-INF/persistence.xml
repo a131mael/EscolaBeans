@@ -21,6 +21,17 @@
 		<class>org.escola.model.Configuracao</class>
 		<class>org.escola.model.Boleto</class>
 		<class>org.escola.model.Avaliacao</class>
+		<class>org.escola.model.Aula</class>
+		<class>org.escola.model.AlunoAula</class>
+		<class>org.escola.model.Contrato</class>
+		<class>org.escola.model.ContratoAdonai</class>
+		<class>org.escola.model.ContratoFretamento</class>
+		<class>org.escola.model.Evento</class>
+		<class>org.escola.model.Faturamento</class>
+		<class>org.escola.model.RecadoCurtido</class>
+		<class>org.escola.model.RecadoDescurtido</class>
+		<class>org.escola.model.RecadoDestinatario</class>
+		<class>org.escola.model.MensagemWhatsApp</class>
 		
 		<properties>
 		

@@ -144,7 +144,10 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	
 	@Column
     private Boolean protestado;
-	
+
+	@Column
+	private Date dataProtesto;
+
 	@Lob
 	private String comentario;
 	
@@ -500,6 +503,14 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	public void setProtestado(Boolean protestado) {
 		this.protestado = protestado;
+	}
+
+	public Date getDataProtesto() {
+		return dataProtesto;
+	}
+
+	public void setDataProtesto(Date dataProtesto) {
+		this.dataProtesto = dataProtesto;
 	}
 
 	public Boolean getPodeProtestarFinal() {
