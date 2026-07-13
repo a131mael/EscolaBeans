@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -49,6 +50,15 @@ public class MensagemWhatsApp implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataCriacao = new Date();
 
+	// bytes reais da mídia (imagem/áudio/vídeo/documento), baixados da Evolution API
+	// enquanto o link do WhatsApp ainda está válido, pra nunca mais expirar depois
+	@Lob
+	@Column(name = "midia")
+	private byte[] midia;
+
+	@Column(name = "midia_mimetype", length = 100)
+	private String midiaMimetype;
+
 	public MensagemWhatsApp() {}
 
 	public MensagemWhatsApp(Aluno aluno, String telefone, String messageId, String texto, boolean fromMe, long waTimestamp) {
@@ -76,4 +86,8 @@ public class MensagemWhatsApp implements Serializable {
 	public void setWaTimestamp(long waTimestamp) { this.waTimestamp = waTimestamp; }
 	public Date getDataCriacao() { return dataCriacao; }
 	public void setDataCriacao(Date dataCriacao) { this.dataCriacao = dataCriacao; }
+	public byte[] getMidia() { return midia; }
+	public void setMidia(byte[] midia) { this.midia = midia; }
+	public String getMidiaMimetype() { return midiaMimetype; }
+	public void setMidiaMimetype(String midiaMimetype) { this.midiaMimetype = midiaMimetype; }
 }
