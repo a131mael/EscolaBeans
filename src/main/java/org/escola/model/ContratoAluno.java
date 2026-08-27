@@ -160,6 +160,9 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 	@Column
 	private TipoBoleto tipoBoleto;
 
+	@Column
+	private String mesesAcordo;
+
 	@Lob
 	@Type(type = "org.hibernate.type.TextType")  
 	private String contratoScaneado;
@@ -548,6 +551,14 @@ public class ContratoAluno implements Serializable, Comparable<ContratoAluno> {
 
 	public void setTipoBoleto(TipoBoleto tipoBoleto) {
 		this.tipoBoleto = tipoBoleto;
+	}
+
+	public String getMesesAcordo() {
+		return mesesAcordo;
+	}
+
+	public void setMesesAcordo(String mesesAcordo) {
+		this.mesesAcordo = mesesAcordo;
 	}
 
 	public String getEnderecoNumero() {
