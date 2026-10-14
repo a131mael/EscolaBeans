@@ -53,8 +53,10 @@ public class Turma implements Serializable {
     
     @NotNull
     private PerioddoEnum periodo;
-    
-    
+
+    private String professorBoletim;
+
+
     @OneToMany(fetch = FetchType.LAZY)
     private List<AlunoTurma> alunosTurmas;
     
@@ -118,6 +120,14 @@ public class Turma implements Serializable {
 
 	public void setTotalAlunos(int totalAlunos) {
 		this.totalAlunos = totalAlunos;
+	}
+
+	public String getProfessorBoletim() {
+		return professorBoletim;
+	}
+
+	public void setProfessorBoletim(String professorBoletim) {
+		this.professorBoletim = professorBoletim;
 	}
 
     
