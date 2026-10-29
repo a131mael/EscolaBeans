@@ -446,6 +446,18 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@Deprecated
 	private Double valorMensal;
 
+	@Column
+	private String statusWhatsAppSync;
+
+	@Column
+	private Date dataUltimaSincWhatsApp;
+
+	@Column
+	private Date dataUltimaCobranca;
+
+	@Column(columnDefinition = "TEXT")
+	private String observacaoCobranca;
+
 	@Transient
 	private long percentualAulasAssistidas;
 
@@ -1310,6 +1322,28 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	public void setValorMensal(double valorMensal) {
 		this.valorMensal = valorMensal;
 	}
+
+	public String getStatusWhatsAppSync() {
+		return statusWhatsAppSync;
+	}
+
+	public void setStatusWhatsAppSync(String statusWhatsAppSync) {
+		this.statusWhatsAppSync = statusWhatsAppSync;
+	}
+
+	public Date getDataUltimaSincWhatsApp() {
+		return dataUltimaSincWhatsApp;
+	}
+
+	public void setDataUltimaSincWhatsApp(Date dataUltimaSincWhatsApp) {
+		this.dataUltimaSincWhatsApp = dataUltimaSincWhatsApp;
+	}
+
+	public Date getDataUltimaCobranca() { return dataUltimaCobranca; }
+	public void setDataUltimaCobranca(Date dataUltimaCobranca) { this.dataUltimaCobranca = dataUltimaCobranca; }
+
+	public String getObservacaoCobranca() { return observacaoCobranca; }
+	public void setObservacaoCobranca(String observacaoCobranca) { this.observacaoCobranca = observacaoCobranca; }
 
 	public String getNomeResponsavel() {
 		return nomeResponsavel;
