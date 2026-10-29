@@ -63,7 +63,10 @@ public class Turma implements Serializable {
     
     @Transient
     private int totalAlunos = 0;
-    
+
+    @javax.persistence.Column
+    private String professorBoletim;
+
 	public Serie getSerie() {
 		return serie;
 	}
@@ -118,6 +121,14 @@ public class Turma implements Serializable {
 
 	public void setTotalAlunos(int totalAlunos) {
 		this.totalAlunos = totalAlunos;
+	}
+
+	public String getProfessorBoletim() {
+		return professorBoletim;
+	}
+
+	public void setProfessorBoletim(String professorBoletim) {
+		this.professorBoletim = professorBoletim;
 	}
 
     
