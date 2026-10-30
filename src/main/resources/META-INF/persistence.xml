@@ -32,7 +32,10 @@
 		<class>org.escola.model.RecadoDescurtido</class>
 		<class>org.escola.model.RecadoDestinatario</class>
 		<class>org.escola.model.MensagemWhatsApp</class>
-		
+		<class>org.escola.model.EventoArrecadacao</class>
+		<class>org.escola.model.EventoParticipante</class>
+		<class>org.escola.model.EventoParcela</class>
+
 		<properties>
 		
 			<property name="hibernate.c3p0.min_size" value="10"/>
