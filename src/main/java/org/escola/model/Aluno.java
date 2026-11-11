@@ -458,6 +458,12 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@Column(columnDefinition = "TEXT")
 	private String observacaoCobranca;
 
+	@Column
+	private Boolean critico;
+
+	@Column
+	private Date dataMarcadoCritico;
+
 	@Transient
 	private long percentualAulasAssistidas;
 
@@ -1344,6 +1350,12 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	public String getObservacaoCobranca() { return observacaoCobranca; }
 	public void setObservacaoCobranca(String observacaoCobranca) { this.observacaoCobranca = observacaoCobranca; }
+
+	public Boolean getCritico() { return critico; }
+	public void setCritico(Boolean critico) { this.critico = critico; }
+
+	public Date getDataMarcadoCritico() { return dataMarcadoCritico; }
+	public void setDataMarcadoCritico(Date dataMarcadoCritico) { this.dataMarcadoCritico = dataMarcadoCritico; }
 
 	public String getNomeResponsavel() {
 		return nomeResponsavel;
