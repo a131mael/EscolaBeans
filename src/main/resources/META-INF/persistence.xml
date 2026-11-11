@@ -35,6 +35,7 @@
 		<class>org.escola.model.EventoArrecadacao</class>
 		<class>org.escola.model.EventoParticipante</class>
 		<class>org.escola.model.EventoParcela</class>
+		<class>org.escola.model.NotaFiscal</class>
 
 		<properties>
 		

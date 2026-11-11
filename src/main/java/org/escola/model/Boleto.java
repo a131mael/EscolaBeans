@@ -82,7 +82,20 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 	
 	@Column
 	private Boolean baixaGerada;
-	
+
+	/** Situacao do boleto retornada pela API de Cobranca Bancaria do Sicoob (ex: Em Aberto, Liquidado, Baixado) */
+	@Column
+	private String statusSicoob;
+
+	/** Data/hora da ultima consulta de situacao na API do Sicoob */
+	@Column
+	private Date dataConsultaSicoob;
+
+	// Banco reportou "decurso de prazo" no retorno - so uma marcacao informativa,
+	// nao mexe em valorPago/dataPagamento/protestado (a baixa manual, se existir, e a fonte de verdade)
+	@Column
+	private Boolean baixaDecursoPrazo;
+
 	@Deprecated
 	@Column
 	private Boolean enviadoParaBanco;
@@ -191,6 +204,30 @@ public class Boleto  implements Serializable, Comparable<Boleto>{
 
 	public void setBaixaGerada(Boolean baixaGerada) {
 		this.baixaGerada = baixaGerada;
+	}
+
+	public String getStatusSicoob() {
+		return statusSicoob;
+	}
+
+	public void setStatusSicoob(String statusSicoob) {
+		this.statusSicoob = statusSicoob;
+	}
+
+	public Date getDataConsultaSicoob() {
+		return dataConsultaSicoob;
+	}
+
+	public void setDataConsultaSicoob(Date dataConsultaSicoob) {
+		this.dataConsultaSicoob = dataConsultaSicoob;
+	}
+
+	public Boolean getBaixaDecursoPrazo() {
+		return baixaDecursoPrazo;
+	}
+
+	public void setBaixaDecursoPrazo(Boolean baixaDecursoPrazo) {
+		this.baixaDecursoPrazo = baixaDecursoPrazo;
 	}
 
 	public Boolean getAlteracaoBoletoManual() {
