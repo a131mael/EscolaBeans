@@ -59,6 +59,7 @@ public class NotaFiscal implements Serializable {
 	private Date dataAutorizacao;
 
 	/** Motivo caso tenha sido rejeitada pelo governo */
+	@Lob
 	@Column
 	private String motivoRejeicao;
 
