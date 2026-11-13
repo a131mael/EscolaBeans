@@ -74,6 +74,12 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 	@Column
 	private String contatoEmail2;
 
+	/** Numero de WhatsApp usado especificamente pra envio automatico de informacoes
+	 * (nota fiscal, chave Pix, etc.) -- separado dos outros telefones de contato
+	 * porque esses podem nao ser WhatsApp ou nao ser o numero certo pra isso. */
+	@Column
+	private String numeroWhatsapp;
+
 	@Column
 	private String contatoTelefone1;
 
@@ -1510,6 +1516,14 @@ public class Aluno implements Serializable, Comparable<Aluno> {
 
 	public void setContatoEmail2(String contatoEmail2) {
 		this.contatoEmail2 = contatoEmail2;
+	}
+
+	public String getNumeroWhatsapp() {
+		return numeroWhatsapp;
+	}
+
+	public void setNumeroWhatsapp(String numeroWhatsapp) {
+		this.numeroWhatsapp = numeroWhatsapp;
 	}
 
 	public String getContatoTelefone1() {

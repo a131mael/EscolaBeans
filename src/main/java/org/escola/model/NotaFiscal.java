@@ -52,6 +52,16 @@ public class NotaFiscal implements Serializable {
 	@Column
 	private Double valor;
 
+	/** "SISTEMA" (emitida por este software via API) ou "HISTORICO_ADN" (importada da
+	 * distribuicao do governo -- nota emitida manualmente ou pelo sistema antigo da
+	 * prefeitura, sem boleto vinculado aqui). */
+	@Column
+	private String origem;
+
+	/** So preenchido pra notas importadas do ADN (sem boleto vinculado) -- nome de quem pagou. */
+	@Column
+	private String nomeTomador;
+
 	@Column
 	private Date dataEnvio;
 
@@ -133,6 +143,22 @@ public class NotaFiscal implements Serializable {
 
 	public void setValor(Double valor) {
 		this.valor = valor;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
+	}
+
+	public String getNomeTomador() {
+		return nomeTomador;
+	}
+
+	public void setNomeTomador(String nomeTomador) {
+		this.nomeTomador = nomeTomador;
 	}
 
 	public Date getDataEnvio() {
